@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAYNEST - Ambil Antrean</title>
+
+<style>
+    * { box-sizing: border-box; }
+
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 20px 16px 60px;
+        background-color: #f4f5f7;
+        color: #1c1c1e;
+    }
+
+    h1 { font-size: 36px; margin-bottom: 4px; color: #111; }
+    h2 { font-size: 22px; margin-top: 10px; color: #333; }
+    p.sub { font-size: 16px; color: #666; margin-top: 0; }
+
+    #statusKoneksi { font-size: 13px; color: #999; margin-bottom: 6px; }
+    #statusKoneksi.error { color: #c0392b; font-weight: bold; }
+
+    .gameGrid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px; max-width: 900px; margin: 24px auto;
+    }
+    .gameCard { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .gameCard h4 { margin: 0 0 6px; font-size: 22px; }
+    .gameCard .waiting-count { font-size: 14px; color: #888; margin-bottom: 14px; }
+    .gameCard button {
+        width: 100%; padding: 16px; font-size: 18px; border: none; border-radius: 10px;
+        cursor: pointer; font-weight: bold; background: #3498db; color: white;
+    }
+    .gameCard button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #tiketSaya { max-width: 700px; margin: 30px auto; text-align: left; }
+    #tiketSaya h3 { text-align: center; font-size: 20px; color: #333; }
+
+    .tiketCard {
+        background: white; border-radius: 14px; padding: 18px; margin-bottom: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        border-left: 6px solid #f39c12;
+    }
+    .tiketCard.playing {
+        border-left: 6px solid #2ecc71;
+        background: linear-gradient(135deg, #eafaf1, #ffffff);
+        animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%   { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); }
+        70%  { box-shadow: 0 0 0 14px rgba(46, 204, 113, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+    }
+    .tiketCard .idBesar { font-size: 26px; font-weight: bold; }
+    .tiketCard .statusText { font-size: 15px; margin-top: 6px; font-weight: bold; }
+    .tiketCard.playing .statusText { color: #1e8449; }
+    .tiketCard:not(.playing) .statusText { color: #b9770e; }
+
+    .empty-msg { color: #999; font-size: 14px; padding: 10px 0; text-align: center; }
+</style>
+</head>
+
+<body>
+
+<h1>PLAYNEST</h1>
+<h2>Ambil Nomor Antrean</h2>
+<p class="sub">Pilih permainan yang ingin kamu mainkan.</p>
+<p id="statusKoneksi">Menghubungkan ke server...</p>
+
+<div class="gameGrid" id="gameGrid"></div>
+
+<div id="tiketSaya">
+    <h3>🎫 Nomor Antrean Saya</h3>
+    <div id="daftarTiketSaya"></div>
+</div>
+
+<script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzRkt6iHzcNTegWjfkc8JKoch4sB1_iF-lRsBIAbqgDqVJHO9ytQHbFF5O6R7mSiw5fSA/exec";
+
+    const JENIS_GAME = ["PS5", "PS4", "Nintendo", "Racing"];
+    const TIKET_KEY = "playnest_tiket_saya";
+    let semuaAntrean = [];
+    let sedangProses = false;
+
+    function muatTiketSaya() {
+        let data = localStorage.getItem(TIKET_KEY);
+        return data ? JSON.parse(data) : [];
+    }
+
+    function simpanTiketSaya(daftar) {
+        localStorage.setItem(TIKET_KEY, JSON.stringify(daftar));
+    }
+
+    function tambahTiketSaya(queueId) {
+        let daftar = muatTiketSaya();
+        daftar.push(queueId);
+        simpanTiketSaya(daftar);
+    }
+
+    async function panggilAPI(params) {
+        let url = API_URL + "?" + new URLSearchParams(params).toString();
+        let res = await fetch(url);
+        let json = await res.json();
+        return json;
+    }
+
+    async function muatData() {
+        try {
+            let hasil = await panggilAPI({ action: "list" });
+            if (hasil.success) {
+                semuaAntrean = hasil.data;
+                document.getElementById("statusKoneksi").textContent = "Terhubung — data tersinkron";
+                document.getElementById("statusKoneksi").classList.remove("error");
+                render();
+            } else {
+                tampilkanErrorKoneksi(hasil.message);
+            }
+        } catch (err) {
+            tampilkanErrorKoneksi(err.toString());
+        }
+    }
+
+    function tampilkanErrorKoneksi(pesan) {
+        let el = document.getElementById("statusKoneksi");
+        el.textContent = "Gagal terhubung ke server. (" + pesan + ")";
+        el.classList.add("error");
+    }
+
+    async function ambilAntrean(game) {
+        if (sedangProses) return;
+        let namaCustomer = prompt("Nama kamu:", "");
+        if (namaCustomer === null) return;
+        if (namaCustomer.trim() === "") namaCustomer = "Tanpa Nama";
+
+        let jumlahPlayer = prompt("Jumlah pemain:", "1");
+        if (jumlahPlayer === null) return;
+        jumlahPlayer = parseInt(jumlahPlayer) || 1;
+
+        sedangProses = true;
+        let hasil = await panggilAPI({
+            action: "add", game: game, customer: namaCustomer, players: jumlahPlayer
+        });
+        sedangProses = false;
+
+        if (!hasil.success) {
+            alert("Gagal mengambil antrean: " + hasil.message);
+            return;
+        }
+
+        tambahTiketSaya(hasil.queueId);
+        alert("Berhasil! Nomor antrean kamu: " + hasil.queueId);
+        await muatData();
+    }
+
+    function render() {
+        let grid = document.getElementById("gameGrid");
+        grid.innerHTML = "";
+
+        JENIS_GAME.forEach(game => {
+            let menunggu = semuaAntrean.filter(i => i.game === game && i.status === "WAITING");
+
+            let card = document.createElement("div");
+            card.className = "gameCard";
+            card.innerHTML = `
+                <h4>${game}</h4>
+                <div class="waiting-count">${menunggu.length} orang menunggu</div>
+                <button onclick="ambilAntrean('${game}')">Ambil Antrean ${game}</button>
+            `;
+            grid.appendChild(card);
+        });
+
+        let tiketSayaIds = muatTiketSaya();
+        let container = document.getElementById("daftarTiketSaya");
+
+        if (tiketSayaIds.length === 0) {
+            container.innerHTML = '<p class="empty-msg">Kamu belum mengambil antrean</p>';
+            return;
+        }
+
+        let html = "";
+        let masihAda = [];
+
+        tiketSayaIds.forEach(id => {
+            let tiket = semuaAntrean.find(i => i.queueId === id);
+            if (!tiket) return;
+
+            masihAda.push(id);
+            let cls = tiket.status === "PLAYING" ? "playing" : "";
+            let statusText = tiket.status === "PLAYING"
+                ? "🟢 GILIRAN KAMU SEKARANG!"
+                : "🟡 Menunggu dipanggil...";
+
+            html += `
+                <div class="tiketCard ${cls}">
+                    <div class="idBesar">${tiket.queueId}</div>
+                    <div>${tiket.customer} — ${tiket.players} pemain</div>
+                    <div class="statusText">${statusText}</div>
+                </div>
+            `;
+        });
+
+        if (masihAda.length !== tiketSayaIds.length) {
+            simpanTiketSaya(masihAda);
+        }
+
+        container.innerHTML = html || '<p class="empty-msg">Kamu belum mengambil antrean</p>';
+    }
+
+    muatData();
+    setInterval(muatData, 5000);
+</script>
+
+</body>
+</html>
