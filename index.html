@@ -83,6 +83,7 @@
 <h2>Digital Queue System</h2>
 <p class="sub">Selamat datang di PLAYNEST. Tersedia 4 jenis permainan.</p>
 <p id="statusKoneksi">Menghubungkan ke server...</p>
+<p><a href="dashboard.html" style="color:#3498db;font-weight:bold;">📺 Buka Dashboard Captain</a></p>
 
 <div id="panggilanBanner">
     <div class="label">Status Panggilan</div>
@@ -164,8 +165,13 @@
 
     async function panggilAntrian(game) {
         if (sedangProses) return;
+
+        let durasi = prompt("Durasi sesi main (menit):", "60");
+        if (durasi === null) return;
+        durasi = parseInt(durasi) || 60;
+
         sedangProses = true;
-        let hasil = await panggilAPI({ action: "call", game: game });
+        let hasil = await panggilAPI({ action: "call", game: game, durasi: durasi });
         sedangProses = false;
 
         if (!hasil.success) {
