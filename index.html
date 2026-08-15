@@ -107,10 +107,12 @@
     const JENIS_GAME = ["PS5", "PS4", "Nintendo", "Racing"];
     let semuaAntrean = [];
     let sedangProses = false;
+    let bannerQueueId = null;
 
     async function panggilAPI(params) {
+        params._ts = Date.now();
         let url = API_URL + "?" + new URLSearchParams(params).toString();
-        let res = await fetch(url);
+        let res = await fetch(url, { cache: "no-store" });
         let json = await res.json();
         return json;
     }
@@ -181,6 +183,14 @@
         document.getElementById("panggilanNomor").innerText = item.queueId;
         document.getElementById("panggilanCustomer").innerText =
             item.customer + " — " + item.players + " pemain (" + game + ")";
+        bannerQueueId = item.queueId;
+    }
+
+    function resetBanner() {
+        document.getElementById("panggilanBanner").classList.remove("aktif");
+        document.getElementById("panggilanNomor").innerText = "Belum ada panggilan";
+        document.getElementById("panggilanCustomer").innerText = "";
+        bannerQueueId = null;
     }
 
     async function tandaiSelesai(queueId) {
@@ -188,6 +198,11 @@
         sedangProses = true;
         await panggilAPI({ action: "done", queueId: queueId });
         sedangProses = false;
+
+        if (queueId === bannerQueueId) {
+            resetBanner();
+        }
+
         await muatData();
     }
 
@@ -196,6 +211,11 @@
         sedangProses = true;
         await panggilAPI({ action: "delete", queueId: queueId });
         sedangProses = false;
+
+        if (queueId === bannerQueueId) {
+            resetBanner();
+        }
+
         await muatData();
     }
 
@@ -204,9 +224,7 @@
         sedangProses = true;
         await panggilAPI({ action: "resetAll" });
         sedangProses = false;
-        document.getElementById("panggilanBanner").classList.remove("aktif");
-        document.getElementById("panggilanNomor").innerText = "Belum ada panggilan";
-        document.getElementById("panggilanCustomer").innerText = "";
+        resetBanner();
         await muatData();
     }
 
@@ -267,7 +285,7 @@
     }
 
     muatData();
-    setInterval(muatData, 5000);
+    setInterval(muatData, 3000);
 </script>
 
 </body>
