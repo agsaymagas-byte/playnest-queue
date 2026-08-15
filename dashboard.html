@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLAYNEST CONTROL</title>
+
+<style>
+    * { box-sizing: border-box; }
+
+    body {
+        font-family: 'Courier New', monospace;
+        margin: 0;
+        padding: 20px 16px 60px;
+        background-color: #0d1117;
+        color: #e6edf3;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 32px;
+        letter-spacing: 4px;
+        margin-bottom: 4px;
+        color: #58a6ff;
+    }
+    .subtitle { color: #8b949e; font-size: 13px; margin-bottom: 4px; }
+    #statusKoneksi { font-size: 12px; color: #6e7681; margin-bottom: 20px; }
+    #statusKoneksi.error { color: #f85149; font-weight: bold; }
+
+    .ringkasan {
+        display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+        max-width: 900px; margin: 0 auto 24px;
+    }
+    .ringkasan .kotak {
+        background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+        padding: 12px 18px; min-width: 90px;
+    }
+    .ringkasan .angka { font-size: 26px; font-weight: bold; }
+    .ringkasan .label { font-size: 11px; color: #8b949e; letter-spacing: 1px; }
+
+    .unitGrid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 14px; max-width: 1100px; margin: 0 auto;
+    }
+
+    .unitCard {
+        background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+        padding: 16px; text-align: left; position: relative; overflow: hidden;
+    }
+    .unitCard.playing { border-color: #2ea043; }
+    .unitCard.warning { border-color: #d29922; animation: blinkWarn 1.5s infinite; }
+    .unitCard.expired { border-color: #f85149; animation: blinkExpired 0.8s infinite; }
+
+    @keyframes blinkWarn {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(210, 153, 34, 0); }
+        50% { box-shadow: 0 0 0 6px rgba(210, 153, 34, 0.15); }
+    }
+    @keyframes blinkExpired {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0); }
+        50% { box-shadow: 0 0 0 8px rgba(248, 81, 73, 0.25); }
+    }
+
+    .unitCard .baris1 {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 8px;
+    }
+    .unitCard .idUnit { font-size: 18px; font-weight: bold; color: #58a6ff; }
+    .statusDot { font-size: 13px; padding: 2px 10px; border-radius: 10px; font-weight: bold; }
+    .statusDot.playing { background: #0d2818; color: #3fb950; }
+    .statusDot.waiting { background: #2d2410; color: #d29922; }
+
+    .unitCard .customer { font-size: 16px; margin-bottom: 4px; }
+    .unitCard .players { font-size: 12px; color: #8b949e; margin-bottom: 10px; }
+
+    .timerBox {
+        font-size: 28px; font-weight: bold; text-align: center;
+        padding: 8px; border-radius: 8px; background: #0d1117;
+        letter-spacing: 2px;
+    }
+    .timerBox.normal { color: #3fb950; }
+    .timerBox.warning { color: #d29922; }
+    .timerBox.expired { color: #f85149; }
+
+    .antrianBox {
+        max-width: 1100px; margin: 30px auto 0; text-align: left;
+    }
+    .antrianBox h3 { color: #8b949e; font-size: 14px; letter-spacing: 1px; }
+    .antrianList { display: flex; gap: 8px; flex-wrap: wrap; }
+    .antrianChip {
+        background: #161b22; border: 1px solid #30363d; border-radius: 20px;
+        padding: 6px 14px; font-size: 13px; color: #d29922;
+    }
+
+    .empty-msg { color: #6e7681; font-size: 14px; padding: 20px; }
+</style>
+</head>
+
+<body>
+
+<h1>PLAYNEST CONTROL</h1>
+<p class="subtitle">Dashboard Captain — Live Monitoring</p>
+<p id="statusKoneksi">Menghubungkan ke server...</p>
+
+<div class="ringkasan">
+    <div class="kotak"><div class="angka" id="jmlPlaying">0</div><div class="label">SEDANG MAIN</div></div>
+    <div class="kotak"><div class="angka" id="jmlWaiting">0</div><div class="label">MENUNGGU</div></div>
+    <div class="kotak"><div class="angka" id="jmlWarning">0</div><div class="label">HAMPIR HABIS</div></div>
+    <div class="kotak"><div class="angka" id="jmlExpired">0</div><div class="label">WAKTU HABIS</div></div>
+</div>
+
+<div class="unitGrid" id="unitGrid"></div>
+
+<div class="antrianBox">
+    <h3>⏳ ANTREAN MENUNGGU</h3>
+    <div class="antrianList" id="antrianList"></div>
+</div>
+
+<script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzRkt6iHzcNTegWjfkc8JKoch4sB1_iF-lRsBIAbqgDqVJHO9ytQHbFF5O6R7mSiw5fSA/exec";
+    let semuaAntrean = [];
+
+    async function panggilAPI(params) {
+        params._ts = Date.now();
+        let url = API_URL + "?" + new URLSearchParams(params).toString();
+        let res = await fetch(url, { cache: "no-store" });
+        let json = await res.json();
+        return json;
+    }
+
+    async function muatData() {
+        try {
+            let hasil = await panggilAPI({ action: "list" });
+            if (hasil.success) {
+                semuaAntrean = hasil.data;
+                document.getElementById("statusKoneksi").textContent = "Terhubung — data tersinkron";
+                document.getElementById("statusKoneksi").classList.remove("error");
+                render();
+            } else {
+                tampilkanErrorKoneksi(hasil.message);
+            }
+        } catch (err) {
+            tampilkanErrorKoneksi(err.toString());
+        }
+    }
+
+    function tampilkanErrorKoneksi(pesan) {
+        let el = document.getElementById("statusKoneksi");
+        el.textContent = "Gagal terhubung ke server. (" + pesan + ")";
+        el.classList.add("error");
+    }
+
+    function hitungSisaDetik(item) {
+        if (!item.mulaiMain || !item.durasiMenit) return null;
+        let totalDetik = item.durasiMenit * 60;
+        let berlaluDetik = Math.floor((Date.now() - item.mulaiMain) / 1000);
+        return totalDetik - berlaluDetik;
+    }
+
+    function formatWaktu(detik) {
+        let minus = detik < 0;
+        let absDetik = Math.abs(detik);
+        let mm = Math.floor(absDetik / 60);
+        let ss = absDetik % 60;
+        let teks = String(mm).padStart(2, "0") + ":" + String(ss).padStart(2, "0");
+        return minus ? "-" + teks : teks;
+    }
+
+    function statusTimer(sisaDetik) {
+        if (sisaDetik === null) return "normal";
+        if (sisaDetik <= 0) return "expired";
+        if (sisaDetik <= 600) return "warning";
+        return "normal";
+    }
+
+    function render() {
+        let playingList = semuaAntrean.filter(i => i.status === "PLAYING");
+        let waitingList = semuaAntrean.filter(i => i.status === "WAITING");
+
+        let jmlWarning = 0, jmlExpired = 0;
+
+        let grid = document.getElementById("unitGrid");
+
+        if (playingList.length === 0) {
+            grid.innerHTML = '<p class="empty-msg">Belum ada unit yang sedang dipakai</p>';
+        } else {
+            grid.innerHTML = playingList.map(item => {
+                let sisaDetik = hitungSisaDetik(item);
+                let statusW = statusTimer(sisaDetik);
+                if (statusW === "warning") jmlWarning++;
+                if (statusW === "expired") jmlExpired++;
+
+                let cardCls = statusW === "expired" ? "playing expired" : (statusW === "warning" ? "playing warning" : "playing");
+                let timerText = sisaDetik === null ? "—:—" : formatWaktu(sisaDetik);
+                let timerLabel = statusW === "expired" ? "⚠️ WAKTU HABIS" : (statusW === "warning" ? "⏱️ HAMPIR HABIS" : "⏱️ SISA WAKTU");
+
+                return `
+                    <div class="unitCard ${cardCls}">
+                        <div class="baris1">
+                            <span class="idUnit">${item.queueId}</span>
+                            <span class="statusDot playing">PLAYING</span>
+                        </div>
+                        <div class="customer">${item.customer}</div>
+                        <div class="players">${item.players} pemain — ${item.game}</div>
+                        <div style="font-size:10px;color:#6e7681;margin-bottom:4px;">${timerLabel}</div>
+                        <div class="timerBox ${statusW}">${timerText}</div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        document.getElementById("jmlPlaying").textContent = playingList.length;
+        document.getElementById("jmlWaiting").textContent = waitingList.length;
+        document.getElementById("jmlWarning").textContent = jmlWarning;
+        document.getElementById("jmlExpired").textContent = jmlExpired;
+
+        let antrianList = document.getElementById("antrianList");
+        if (waitingList.length === 0) {
+            antrianList.innerHTML = '<p class="empty-msg">Tidak ada yang menunggu</p>';
+        } else {
+            antrianList.innerHTML = waitingList.map(item =>
+                `<span class="antrianChip">${item.queueId} — ${item.customer}</span>`
+            ).join("");
+        }
+    }
+
+    muatData();
+    setInterval(muatData, 3000);
+    setInterval(render, 1000);
+</script>
+
+</body>
+</html>
