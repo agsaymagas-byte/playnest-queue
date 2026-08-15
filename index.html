@@ -1,94 +1,172 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PLAYNEST Queue</title>
+<title>PLAYNEST — Kasir</title>
 
 <style>
+    :root {
+        --bg-deep: #120B23;
+        --bg-surface: #1E1338;
+        --bg-surface-2: #281a47;
+        --accent: #7C3AED;
+        --accent-glow: #C084FC;
+        --text-main: #F3EEFF;
+        --text-muted: #A99BD1;
+        --ps5: #8B5CF6;
+        --ps4: #6366F1;
+        --nintendo: #D946EF;
+        --racing: #22D3EE;
+        --font-display: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        --font-body: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+        --font-mono: Consolas, "Roboto Mono", Menlo, monospace;
+    }
     * { box-sizing: border-box; }
 
     body {
-        font-family: Arial, sans-serif;
-        text-align: center;
         margin: 0;
-        padding: 20px 16px 60px;
-        background-color: #f4f5f7;
-        color: #1c1c1e;
+        background: radial-gradient(ellipse at top, #1a0f35 0%, var(--bg-deep) 55%, #0a0616 100%);
+        color: var(--text-main);
+        font-family: var(--font-body);
+        padding: 30px 16px 70px;
+        text-align: center;
+        min-height: 100vh;
     }
 
-    h1 { font-size: 36px; margin-bottom: 4px; color: #111; }
-    h2 { font-size: 24px; margin-top: 10px; color: #333; }
-    h3 { font-size: 20px; margin: 24px 0 10px; color: #333; }
-    p.sub { font-size: 16px; color: #666; margin-top: 0; }
+    .logoMark { width: 52px; height: 52px; margin: 0 auto 14px; position: relative; }
+    .logoMark::before, .logoMark::after {
+        content: ''; position: absolute; border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, var(--accent-glow), var(--accent) 70%);
+        box-shadow: 0 0 20px 3px rgba(124, 58, 237, 0.5);
+    }
+    .logoMark::before { width: 21px; height: 21px; left: 3px; top: 15px; }
+    .logoMark::after { width: 21px; height: 21px; right: 3px; top: 15px; }
+    .logoMark .bar {
+        position: absolute; left: 10px; right: 10px; top: 21px; height: 11px;
+        background: linear-gradient(135deg, var(--bg-surface-2), var(--bg-surface));
+        border: 1px solid rgba(192, 132, 252, 0.4); border-radius: 8px;
+    }
 
-    #statusKoneksi { font-size: 13px; color: #999; margin-bottom: 6px; }
-    #statusKoneksi.error { color: #c0392b; font-weight: bold; }
+    h1.brand {
+        font-family: var(--font-display); font-weight: 800; font-size: 34px; letter-spacing: 5px;
+        margin: 0 0 2px;
+        background: linear-gradient(135deg, #ffffff, var(--accent-glow));
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .tagline {
+        font-family: var(--font-display); font-size: 11px; letter-spacing: 3px;
+        color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;
+    }
+    .sub { font-size: 13px; color: var(--text-muted); margin: 4px 0 6px; }
+
+    #statusKoneksi { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    #statusKoneksi.error { color: #f87171; font-weight: bold; }
+
+    .linkDash { display: inline-block; margin-bottom: 18px; }
+    .linkDash a {
+        color: var(--accent-glow); font-weight: 600; text-decoration: none; font-size: 13px;
+        border: 1px solid rgba(192,132,252,0.3); padding: 6px 14px; border-radius: 20px;
+    }
 
     #panggilanBanner {
-        max-width: 700px; margin: 20px auto; padding: 20px;
-        border-radius: 16px; background: #e9ecef; transition: background 0.3s ease;
+        max-width: 640px; margin: 0 auto 30px; padding: 20px;
+        background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-2));
+        border: 1px solid rgba(192,132,252,0.2); border-radius: 18px;
+        transition: box-shadow 0.3s ease;
     }
     #panggilanBanner.aktif {
-        background: linear-gradient(135deg, #2ecc71, #27ae60);
-        color: white; animation: pulse 1.2s ease-in-out infinite;
+        box-shadow: 0 0 40px -8px rgba(124,58,237,0.55);
+        border-color: var(--accent-glow);
+        animation: pulseBanner 1.4s ease-in-out infinite;
     }
-    @keyframes pulse {
-        0%   { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6); }
-        70%  { box-shadow: 0 0 0 16px rgba(46, 204, 113, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+    @keyframes pulseBanner {
+        0%, 100% { box-shadow: 0 0 20px -4px rgba(124,58,237,0.4); }
+        50% { box-shadow: 0 0 40px 4px rgba(124,58,237,0.6); }
     }
-    #panggilanBanner .label { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; }
-    #panggilanBanner .nomorBesar { font-size: 40px; font-weight: bold; margin: 6px 0; }
+    #panggilanBanner .label { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-glow); text-transform: uppercase; }
+    #panggilanBanner .nomorBesar { font-family: var(--font-mono); font-weight: 700; font-size: 32px; margin: 6px 0; }
+    #panggilanBanner .infoLain { font-size: 13px; color: var(--text-muted); }
 
     .gameGrid {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 16px; max-width: 900px; margin: 24px auto;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px; max-width: 950px; margin: 0 auto 40px;
     }
-    .gameCard { background: white; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: left; }
-    .gameCard h4 { margin: 0 0 8px; font-size: 20px; }
-    .gameCard .waiting-count { font-size: 13px; color: #888; margin-bottom: 10px; }
-    .gameCard button { width: 100%; padding: 12px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 8px; font-weight: bold; }
-    .btnAmbil { background: #3498db; color: white; }
-    .btnPanggil { background: #f39c12; color: white; }
-    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .gameCard {
+        position: relative; background: linear-gradient(160deg, var(--bg-surface), #170e2c);
+        border-radius: 18px; padding: 20px; text-align: left; overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+    .gameCard::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+    .gameCard.ps5::before { background: var(--ps5); box-shadow: 0 0 14px var(--ps5); }
+    .gameCard.ps4::before { background: var(--ps4); box-shadow: 0 0 14px var(--ps4); }
+    .gameCard.nintendo::before { background: var(--nintendo); box-shadow: 0 0 14px var(--nintendo); }
+    .gameCard.racing::before { background: var(--racing); box-shadow: 0 0 14px var(--racing); }
+    .gameCard .icon { display: block; margin-bottom: 8px; filter: drop-shadow(0 0 6px rgba(192,132,252,0.35)); }
+    .gameCard h4 { font-family: var(--font-display); margin: 0 0 4px; font-size: 19px; font-weight: 700; }
+    .gameCard .waiting-count { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+    .gameCard button {
+        width: 100%; padding: 12px; border: none; border-radius: 10px; margin-bottom: 8px;
+        font-family: var(--font-display); font-weight: 600; font-size: 14px; cursor: pointer; color: white;
+    }
+    .btnAmbil.ps5 { background: linear-gradient(135deg, var(--ps5), #6D28D9); }
+    .btnAmbil.ps4 { background: linear-gradient(135deg, var(--ps4), #4338CA); }
+    .btnAmbil.nintendo { background: linear-gradient(135deg, var(--nintendo), #A21CAF); }
+    .btnAmbil.racing { background: linear-gradient(135deg, var(--racing), #0891B2); }
+    .btnPanggil { background: linear-gradient(135deg, #f59e0b, #d97706); }
 
-    .antreanList { list-style: none; padding: 0; margin: 10px 0 0; font-size: 14px; max-height: 140px; overflow-y: auto; }
-    .antreanList li { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid #eee; }
-    .antreanList li.playing { background: #eafaf1; }
+    .antreanList { list-style: none; padding: 0; margin: 10px 0 0; font-size: 13px; max-height: 130px; overflow-y: auto; }
+    .antreanList li { display: flex; justify-content: space-between; padding: 6px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); color: var(--text-main); }
+    .badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
+    .badge.waiting { background: rgba(245,158,11,0.15); color: #fbbf24; }
+    .badge.playing { background: rgba(34,197,94,0.15); color: #4ade80; }
 
-    .badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
-    .badge.waiting { background: #fdecea; color: #c0392b; }
-    .badge.playing { background: #eafaf1; color: #1e8449; }
-
-    #adminSection { max-width: 900px; margin: 40px auto 0; background: white; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-    #adminToggle { background: #34495e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 15px; margin-bottom: 12px; }
-    #adminPanelBody { display: none; text-align: left; }
+    #adminSection {
+        max-width: 950px; margin: 0 auto; background: linear-gradient(160deg, var(--bg-surface), #170e2c);
+        border-radius: 18px; padding: 18px; border: 1px solid rgba(255,255,255,0.06); text-align: left;
+    }
+    #adminToggle {
+        background: linear-gradient(135deg, var(--accent), #5B21B6); color: white; border: none;
+        padding: 10px 20px; border-radius: 10px; font-family: var(--font-display); font-weight: 600; cursor: pointer; margin-bottom: 12px;
+    }
+    #adminPanelBody { display: none; }
     #adminPanelBody.show { display: block; }
+    #adminPanelBody h3 { font-family: var(--font-display); font-size: 15px; color: var(--text-muted); text-align: center; }
 
-    .adminRow { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #eee; font-size: 14px; flex-wrap: wrap; gap: 6px; }
-    .adminRow button { padding: 6px 12px; font-size: 13px; border: none; border-radius: 6px; cursor: pointer; color: white; }
-    .btnHapus { background: #e74c3c; }
-    .btnSelesai { background: #27ae60; }
+    .adminRow {
+        display: flex; justify-content: space-between; align-items: center; padding: 10px 4px;
+        border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; flex-wrap: wrap; gap: 6px;
+    }
+    .adminRow button {
+        padding: 6px 11px; font-size: 12px; border: none; border-radius: 7px; cursor: pointer;
+        color: white; font-family: var(--font-display); font-weight: 600;
+    }
+    .btnHapus { background: #dc2626; }
+    .btnSelesai { background: #16a34a; }
+    .btnMulai { background: var(--accent); }
+    .btnWaktu { background: #0d9488; padding: 6px 9px; }
 
-    #resetAllBtn { margin-top: 14px; background: #c0392b; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 14px; }
-    .empty-msg { color: #999; font-size: 14px; padding: 10px 0; }
+    #resetAllBtn {
+        margin-top: 14px; background: #7f1d1d; color: white; border: none;
+        padding: 10px 18px; border-radius: 10px; cursor: pointer; font-family: var(--font-display); font-weight: 600;
+    }
+    .empty-msg { color: var(--text-muted); font-size: 13px; padding: 10px 0; }
 </style>
 </head>
 
 <body>
 
-<h1>PLAYNEST</h1>
-<h2>Digital Queue System</h2>
-<p class="sub">Selamat datang di PLAYNEST. Tersedia 4 jenis permainan.</p>
+<div class="logoMark"><div class="bar"></div></div>
+<h1 class="brand">PLAYNEST</h1>
+<div class="tagline">Premium Gaming Lounge</div>
+<p class="sub">Panel Kasir — Digital Queue System</p>
 <p id="statusKoneksi">Menghubungkan ke server...</p>
-<p><a href="dashboard.html" style="color:#3498db;font-weight:bold;">📺 Buka Dashboard Captain</a></p>
+<div class="linkDash"><a href="dashboard.html">📺 Buka Dashboard Captain</a></div>
 
 <div id="panggilanBanner">
     <div class="label">Status Panggilan</div>
     <div class="nomorBesar" id="panggilanNomor">Belum ada panggilan</div>
-    <div id="panggilanCustomer"></div>
+    <div class="infoLain" id="panggilanCustomer"></div>
 </div>
 
 <div class="gameGrid" id="gameGrid"></div>
@@ -106,9 +184,19 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbzRkt6iHzcNTegWjfkc8JKoch4sB1_iF-lRsBIAbqgDqVJHO9ytQHbFF5O6R7mSiw5fSA/exec";
 
     const JENIS_GAME = ["PS5", "PS4", "Nintendo", "Racing"];
+    const DURASI_PER_GAME = { PS5: 60, PS4: 60, Nintendo: 45, Racing: 30 };
+    const ADMIN_PIN = "1234";
     let semuaAntrean = [];
     let sedangProses = false;
     let bannerQueueId = null;
+    let adminTerbuka = false;
+
+    const ICON_SVG = {
+        PS5: `<svg class="icon" viewBox="0 0 64 40" width="48" height="30"><path d="M10 26 C6 26 4 22 6 16 C8 9 14 6 22 6 L42 6 C50 6 56 9 58 16 C60 22 58 26 54 26 C50 26 49 22 45 22 L19 22 C15 22 14 26 10 26 Z" fill="none" stroke="var(--ps5)" stroke-width="2.2" stroke-linejoin="round"/><circle cx="16" cy="16" r="2.4" fill="var(--ps5)"/><circle cx="48" cy="16" r="2.4" fill="none" stroke="var(--ps5)" stroke-width="1.6"/><circle cx="24" cy="12" r="1.6" fill="var(--ps5)"/><circle cx="24" cy="18" r="1.6" fill="var(--ps5)"/><line x1="21" y1="15" x2="27" y2="15" stroke="var(--ps5)" stroke-width="1.6"/></svg>`,
+        PS4: `<svg class="icon" viewBox="0 0 64 40" width="48" height="30"><path d="M10 26 C6 26 4 22 6 16 C8 9 14 6 22 6 L42 6 C50 6 56 9 58 16 C60 22 58 26 54 26 C50 26 49 22 45 22 L19 22 C15 22 14 26 10 26 Z" fill="none" stroke="var(--ps4)" stroke-width="2.2" stroke-linejoin="round"/><circle cx="16" cy="16" r="2.4" fill="var(--ps4)"/><circle cx="48" cy="16" r="2.4" fill="none" stroke="var(--ps4)" stroke-width="1.6"/><circle cx="24" cy="12" r="1.6" fill="var(--ps4)"/><circle cx="24" cy="18" r="1.6" fill="var(--ps4)"/><line x1="21" y1="15" x2="27" y2="15" stroke="var(--ps4)" stroke-width="1.6"/></svg>`,
+        Nintendo: `<svg class="icon" viewBox="0 0 64 40" width="48" height="30"><rect x="8" y="4" width="18" height="32" rx="9" fill="none" stroke="var(--nintendo)" stroke-width="2.2"/><rect x="38" y="4" width="18" height="32" rx="9" fill="none" stroke="var(--nintendo)" stroke-width="2.2"/><circle cx="17" cy="14" r="2.2" fill="var(--nintendo)"/><line x1="14" y1="24" x2="20" y2="24" stroke="var(--nintendo)" stroke-width="1.8"/><line x1="17" y1="21" x2="17" y2="27" stroke="var(--nintendo)" stroke-width="1.8"/><circle cx="47" cy="14" r="1.8" fill="none" stroke="var(--nintendo)" stroke-width="1.4"/><circle cx="47" cy="24" r="1.8" fill="var(--nintendo)"/></svg>`,
+        Racing: `<svg class="icon" viewBox="0 0 64 40" width="48" height="30"><circle cx="32" cy="20" r="15" fill="none" stroke="var(--racing)" stroke-width="2.2"/><circle cx="32" cy="20" r="4" fill="none" stroke="var(--racing)" stroke-width="1.8"/><line x1="32" y1="8" x2="32" y2="16" stroke="var(--racing)" stroke-width="2"/><line x1="21" y1="26" x2="28" y2="22" stroke="var(--racing)" stroke-width="2"/><line x1="43" y1="26" x2="36" y2="22" stroke="var(--racing)" stroke-width="2"/></svg>`
+    };
 
     async function panggilAPI(params) {
         params._ts = Date.now();
@@ -136,7 +224,7 @@
 
     function tampilkanErrorKoneksi(pesan) {
         let el = document.getElementById("statusKoneksi");
-        el.textContent = "Gagal terhubung ke server. Cek API_URL. (" + pesan + ")";
+        el.textContent = "Gagal terhubung ke server. (" + pesan + ")";
         el.classList.add("error");
     }
 
@@ -151,35 +239,46 @@
         jumlahPlayer = parseInt(jumlahPlayer) || 1;
 
         sedangProses = true;
-        let hasil = await panggilAPI({
-            action: "add", game: game, customer: namaCustomer, players: jumlahPlayer
-        });
+        let hasil = await panggilAPI({ action: "add", game: game, customer: namaCustomer, players: jumlahPlayer });
         sedangProses = false;
 
-        if (!hasil.success) {
-            alert("Gagal menambah antrean: " + hasil.message);
-            return;
-        }
+        if (!hasil.success) { alert("Gagal menambah antrean: " + hasil.message); return; }
         await muatData();
     }
 
     async function panggilAntrian(game) {
         if (sedangProses) return;
-
-        let durasi = prompt("Durasi sesi main (menit):", "60");
-        if (durasi === null) return;
-        durasi = parseInt(durasi) || 60;
-
         sedangProses = true;
-        let hasil = await panggilAPI({ action: "call", game: game, durasi: durasi });
+        let hasil = await panggilAPI({ action: "call", game: game });
         sedangProses = false;
 
-        if (!hasil.success) {
-            alert(hasil.message || "Tidak ada antrean menunggu untuk " + game);
-            return;
-        }
+        if (!hasil.success) { alert(hasil.message || "Tidak ada antrean menunggu untuk " + game); return; }
 
         tampilkanBanner(hasil, game);
+        await muatData();
+    }
+
+    async function mulaiSesi(queueId, game) {
+        if (sedangProses) return;
+        let defaultDurasi = DURASI_PER_GAME[game] || 60;
+        let durasi = prompt("Durasi sesi main untuk " + queueId + " (menit):", String(defaultDurasi));
+        if (durasi === null) return;
+        durasi = parseInt(durasi) || defaultDurasi;
+
+        sedangProses = true;
+        let hasil = await panggilAPI({ action: "mulai", queueId: queueId, durasi: durasi });
+        sedangProses = false;
+
+        if (!hasil.success) { alert(hasil.message || "Gagal memulai sesi"); return; }
+        await muatData();
+    }
+
+    async function ubahWaktu(queueId, delta) {
+        if (sedangProses) return;
+        sedangProses = true;
+        let hasil = await panggilAPI({ action: "ubahDurasi", queueId: queueId, delta: delta });
+        sedangProses = false;
+        if (!hasil.success) { alert(hasil.message || "Gagal mengubah waktu"); return; }
         await muatData();
     }
 
@@ -188,7 +287,7 @@
         banner.classList.add("aktif");
         document.getElementById("panggilanNomor").innerText = item.queueId;
         document.getElementById("panggilanCustomer").innerText =
-            item.customer + " — " + item.players + " pemain (" + game + ")";
+            item.customer + " — " + item.players + " pemain (" + game + ") — menunggu kedatangan";
         bannerQueueId = item.queueId;
     }
 
@@ -204,11 +303,7 @@
         sedangProses = true;
         await panggilAPI({ action: "done", queueId: queueId });
         sedangProses = false;
-
-        if (queueId === bannerQueueId) {
-            resetBanner();
-        }
-
+        if (queueId === bannerQueueId) resetBanner();
         await muatData();
     }
 
@@ -217,11 +312,7 @@
         sedangProses = true;
         await panggilAPI({ action: "delete", queueId: queueId });
         sedangProses = false;
-
-        if (queueId === bannerQueueId) {
-            resetBanner();
-        }
-
+        if (queueId === bannerQueueId) resetBanner();
         await muatData();
     }
 
@@ -235,7 +326,16 @@
     }
 
     function toggleAdmin() {
-        document.getElementById("adminPanelBody").classList.toggle("show");
+        let panel = document.getElementById("adminPanelBody");
+        if (!adminTerbuka) {
+            let pin = prompt("Masukkan PIN Admin:");
+            if (pin === null) return;
+            if (pin !== ADMIN_PIN) { alert("PIN salah!"); return; }
+            adminTerbuka = true;
+        } else {
+            adminTerbuka = false;
+        }
+        panel.classList.toggle("show");
     }
 
     function render() {
@@ -245,9 +345,10 @@
         JENIS_GAME.forEach(game => {
             let daftarGame = semuaAntrean.filter(i => i.game === game);
             let menunggu = daftarGame.filter(i => i.status === "WAITING");
+            let kelas = game.toLowerCase();
 
             let card = document.createElement("div");
-            card.className = "gameCard";
+            card.className = "gameCard " + kelas;
 
             let listHtml = "";
             if (daftarGame.length === 0) {
@@ -255,19 +356,16 @@
             } else {
                 listHtml = '<ul class="antreanList">' +
                     daftarGame.map(item => {
-                        let cls = item.status === "PLAYING" ? "playing" : "";
                         let badgeCls = item.status === "PLAYING" ? "playing" : "waiting";
-                        return `<li class="${cls}">
-                            <span>${item.queueId} — ${item.customer} (${item.players}p)</span>
-                            <span class="badge ${badgeCls}">${item.status}</span>
-                        </li>`;
+                        return `<li><span>${item.queueId} — ${item.customer} (${item.players}p)</span><span class="badge ${badgeCls}">${item.status}</span></li>`;
                     }).join("") + '</ul>';
             }
 
             card.innerHTML = `
+                ${ICON_SVG[game]}
                 <h4>${game}</h4>
                 <div class="waiting-count">${menunggu.length} menunggu</div>
-                <button class="btnAmbil" onclick="ambilAntrean('${game}')">Ambil Antrean</button>
+                <button class="btnAmbil ${kelas}" onclick="ambilAntrean('${game}')">Ambil Antrean</button>
                 <button class="btnPanggil" onclick="panggilAntrian('${game}')">Panggil Berikutnya</button>
                 ${listHtml}
             `;
@@ -278,15 +376,23 @@
         if (semuaAntrean.length === 0) {
             adminList.innerHTML = '<p class="empty-msg">Belum ada antrean sama sekali</p>';
         } else {
-            adminList.innerHTML = semuaAntrean.map(item => `
+            adminList.innerHTML = semuaAntrean.map(item => {
+                let tombolWaktu = "";
+                if (item.status === "PLAYING" && !item.mulaiMain) {
+                    tombolWaktu = `<button class="btnMulai" onclick="mulaiSesi('${item.queueId}','${item.game}')">▶️ Mulai Sesi</button>`;
+                } else if (item.status === "PLAYING" && item.mulaiMain) {
+                    tombolWaktu = `<button class="btnWaktu" onclick="ubahWaktu('${item.queueId}', 10)">+10m</button><button class="btnWaktu" onclick="ubahWaktu('${item.queueId}', -10)">-10m</button>`;
+                }
+                return `
                 <div class="adminRow">
-                    <span>${item.queueId} — ${item.customer} (${item.players}p) — <b>${item.status}</b></span>
+                    <span>${item.queueId} — ${item.customer} (${item.players}p) — <b>${item.status}${item.status === "PLAYING" && !item.mulaiMain ? " (belum mulai)" : ""}</b></span>
                     <span>
+                        ${tombolWaktu}
                         <button class="btnSelesai" onclick="tandaiSelesai('${item.queueId}')">Selesai</button>
                         <button class="btnHapus" onclick="hapusAntrean('${item.queueId}')">Hapus</button>
                     </span>
-                </div>
-            `).join("");
+                </div>`;
+            }).join("");
         }
     }
 
