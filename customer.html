@@ -103,8 +103,9 @@
     }
 
     async function panggilAPI(params) {
+        params._ts = Date.now();
         let url = API_URL + "?" + new URLSearchParams(params).toString();
-        let res = await fetch(url);
+        let res = await fetch(url, { cache: "no-store" });
         let json = await res.json();
         return json;
     }
@@ -212,7 +213,7 @@
     }
 
     muatData();
-    setInterval(muatData, 5000);
+    setInterval(muatData, 3000);
 </script>
 
 </body>
