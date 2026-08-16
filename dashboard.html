@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>PLAYNEST CONTROL</title>
 
 <style>
 :root {
-    --bg-deep: #120B23;
-    --bg-surface: #1E1338;
-    --bg-surface-2: #281a47;
-    --accent: #7C3AED;
-    --accent-glow: #C084FC;
-    --text-main: #F3EEFF;
-    --text-muted: #A99BD1;
-    --green: #22C55E;
-    --yellow: #EAB308;
-    --red: #EF4444;
-    --blue: #38BDF8;
+    --bg: #090314;
+    --surface: #120720;
+    --surface2: #190b2d;
+    --purple: #8b5cf6;
+    --purple2: #c084fc;
+    --green: #4ade80;
+    --yellow: #facc15;
+    --red: #f87171;
+    --text: #f5efff;
+    --muted: #a99bd1;
 }
 
 * {
@@ -27,319 +27,303 @@
 body {
     margin: 0;
     min-height: 100vh;
-    padding: 28px 14px 60px;
     background:
-        radial-gradient(ellipse at top, #1a0f35 0%, var(--bg-deep) 55%, #080410 100%);
-    color: var(--text-main);
+        radial-gradient(circle at top, #24103f 0%, #090314 55%, #050208 100%);
+    color: var(--text);
     font-family: Arial, sans-serif;
+    padding: 30px 16px 70px;
 }
 
-.header {
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+header {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .logo {
-    width: 52px;
-    height: 52px;
-    margin: 0 auto 12px;
-    position: relative;
-}
-
-.logo::before,
-.logo::after {
-    content: "";
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    top: 15px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #C084FC, #7C3AED);
-    box-shadow: 0 0 20px #7C3AED;
-}
-
-.logo::before {
-    left: 2px;
-}
-
-.logo::after {
-    right: 2px;
-}
-
-.logoBar {
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    top: 21px;
-    height: 11px;
-    border-radius: 8px;
-    background: #281a47;
-    border: 1px solid #C084FC;
-    z-index: 2;
+    font-size: 14px;
+    letter-spacing: 7px;
+    color: var(--purple2);
+    margin-bottom: 10px;
 }
 
 h1 {
     margin: 0;
-    font-size: 30px;
-    letter-spacing: 4px;
-    background: linear-gradient(135deg, white, #C084FC);
-    -webkit-background-clip: text;
-    color: transparent;
+    font-size: 34px;
+    letter-spacing: 6px;
+    font-weight: 800;
 }
 
 .subtitle {
-    margin-top: 5px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--text-muted);
-}
-
-#statusKoneksi {
-    text-align: center;
-    color: var(--text-muted);
+    color: var(--muted);
+    letter-spacing: 3px;
     font-size: 12px;
-    margin: 14px 0 20px;
+    margin-top: 8px;
 }
 
-#statusKoneksi.error {
-    color: #F87171;
+#connection {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 13px;
 }
 
-.summary {
-    max-width: 1000px;
-    margin: auto;
+#connection.error {
+    color: var(--red);
+}
+
+/* STATISTICS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.stat {
+    background: rgba(18,7,32,.85);
+    border: 1px solid rgba(192,132,252,.12);
+    border-radius: 18px;
+    padding: 18px 10px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--purple2);
+}
+
+.stat-label {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+}
+
+/* SECTION */
+
+.section-title {
+    text-align: center;
+    color: var(--purple2);
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin: 35px 0 18px;
+}
+
+/* QUEUE */
+
+.queue-list {
+    display: grid;
+    gap: 14px;
+}
+
+.queue-card {
+    background: linear-gradient(145deg, var(--surface2), var(--surface));
+    border: 1px solid rgba(255,255,255,.06);
+    border-left: 4px solid var(--yellow);
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.queue-card.playing {
+    border-left-color: var(--green);
+    box-shadow: 0 0 25px rgba(74,222,128,.08);
+}
+
+.queue-card.finished {
+    border-left-color: var(--purple);
+}
+
+.queue-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.queue-id {
+    font-family: Consolas, monospace;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--purple2);
+}
+
+.customer {
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.game {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.status.waiting {
+    background: rgba(250,204,21,.12);
+    color: var(--yellow);
+}
+
+.status.playing {
+    background: rgba(74,222,128,.12);
+    color: var(--green);
+}
+
+.timer {
+    text-align: center;
+    font-family: Consolas, monospace;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 18px 0;
+    color: var(--green);
+}
+
+.timer.warning {
+    color: var(--yellow);
+}
+
+.timer.expired {
+    color: var(--red);
+}
+
+.info {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 15px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.btn-call {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.btn-start {
+    background: linear-gradient(135deg, #22c55e, #15803d);
+}
+
+.btn-add {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+}
+
+.btn-minus {
+    background: linear-gradient(135deg, #4b5563, #374151);
+}
+
+.btn-done {
+    background: linear-gradient(135deg, #16a34a, #166534);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+}
+
+.btn-refresh {
+    background: linear-gradient(135deg, #6366f1, #4338ca);
+}
+
+/* EMPTY */
+
+.empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 35px 10px;
+}
+
+/* GAME SUMMARY */
+
+.game-summary {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
-.summaryBox {
-    background: rgba(30,19,56,.85);
-    border: 1px solid rgba(192,132,252,.18);
+.game-box {
+    background: rgba(18,7,32,.7);
+    border: 1px solid rgba(255,255,255,.06);
     border-radius: 14px;
     padding: 14px 8px;
     text-align: center;
 }
 
-.summaryNumber {
-    font-size: 25px;
+.game-name {
     font-weight: bold;
-    color: var(--accent-glow);
+    margin-bottom: 6px;
 }
 
-.summaryLabel {
-    margin-top: 4px;
-    font-size: 9px;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-}
-
-.section {
-    max-width: 1100px;
-    margin: 30px auto 0;
-}
-
-.sectionTitle {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
-
-.gameSection {
-    margin-bottom: 25px;
-}
-
-.gameTitle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(40,26,71,.65);
-    padding: 12px 14px;
-    border-radius: 12px 12px 0 0;
-    border-bottom: 1px solid rgba(192,132,252,.15);
-}
-
-.gameName {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--accent-glow);
-}
-
-.gameCount {
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-.cardList {
-    display: grid;
-    gap: 10px;
-}
-
-.card {
-    background: linear-gradient(160deg, #1E1338, #170E2C);
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 12px;
-    padding: 15px;
-}
-
-.card.waiting {
-    border-left: 4px solid var(--yellow);
-}
-
-.card.called {
-    border-left: 4px solid var(--blue);
-}
-
-.card.playing {
-    border-left: 4px solid var(--green);
-}
-
-.card.expired {
-    border-left: 4px solid var(--red);
-}
-
-.cardTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.queueId {
-    font-family: Consolas, monospace;
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--accent-glow);
-}
-
-.badge {
-    padding: 4px 9px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: bold;
-}
-
-.badge.waiting {
-    color: #FACC15;
-    background: rgba(234,179,8,.13);
-}
-
-.badge.called {
-    color: #38BDF8;
-    background: rgba(56,189,248,.13);
-}
-
-.badge.playing {
-    color: #4ADE80;
-    background: rgba(34,197,94,.13);
-}
-
-.badge.expired {
-    color: #F87171;
-    background: rgba(239,68,68,.13);
-}
-
-.customer {
-    margin-top: 7px;
-    font-size: 15px;
-}
-
-.detail {
-    margin-top: 4px;
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-.timer {
-    margin: 14px 0 10px;
-    padding: 10px;
-    border-radius: 9px;
-    background: rgba(0,0,0,.28);
-    text-align: center;
-    font-family: Consolas, monospace;
-    font-size: 30px;
-    font-weight: bold;
-    color: var(--green);
-    letter-spacing: 2px;
-}
-
-.timer.warning {
-    color: #FACC15;
-}
-
-.timer.expired {
-    color: #F87171;
-}
-
-.buttonRow {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-button {
-    border: none;
-    border-radius: 9px;
-    padding: 12px;
-    color: white;
-    font-weight: bold;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-button:disabled {
-    opacity: .55;
-}
-
-.btnCall {
-    background: linear-gradient(135deg, #EAB308, #CA8A04);
-}
-
-.btnStart {
-    background: linear-gradient(135deg, #22C55E, #15803D);
-}
-
-.btnAdd {
-    background: linear-gradient(135deg, #7C3AED, #5B21B6);
-}
-
-.btnMinus {
-    background: linear-gradient(135deg, #475569, #334155);
-}
-
-.btnDone {
-    background: linear-gradient(135deg, #EF4444, #B91C1C);
-}
-
-.empty {
-    padding: 18px;
-    text-align: center;
-    color: var(--text-muted);
+.game-count {
+    color: var(--muted);
     font-size: 12px;
 }
 
-.notice {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: rgba(124,58,237,.12);
-    border: 1px solid rgba(192,132,252,.15);
-    color: var(--text-muted);
-    font-size: 11px;
-    text-align: center;
-}
+/* MOBILE */
 
-@media (max-width: 600px) {
-    .summary {
-        grid-template-columns: repeat(2, 1fr);
+@media(max-width:700px) {
+
+    body {
+        padding: 20px 12px 50px;
     }
 
     h1 {
         font-size: 25px;
+        letter-spacing: 4px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .game-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .queue-top {
+        flex-direction: column;
+    }
+
+    .timer {
+        font-size: 34px;
+    }
+
+    button {
+        flex: 1;
+        min-width: 90px;
     }
 }
 </style>
@@ -347,70 +331,92 @@ button:disabled {
 
 <body>
 
-<div class="header">
-    <div class="logo">
-        <div class="logoBar"></div>
-    </div>
+<div class="container">
+
+<header>
+
+    <div class="logo">PLAYNEST</div>
 
     <h1>PLAYNEST CONTROL</h1>
 
     <div class="subtitle">
-        DASHBOARD CAPTAIN — OPERASIONAL
+        DASHBOARD CAPTAIN — LIVE MONITORING
+    </div>
+
+    <div id="connection">
+        Menghubungkan ke server...
+    </div>
+
+</header>
+
+
+<!-- STATISTIK -->
+
+<div class="stats">
+
+    <div class="stat">
+        <div class="stat-number" id="jumlahPlaying">0</div>
+        <div class="stat-label">SEDANG MAIN</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-number" id="jumlahWaiting">0</div>
+        <div class="stat-label">MENUNGGU</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-number" id="jumlahHampirHabis">0</div>
+        <div class="stat-label">HAMPIR HABIS</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-number" id="jumlahHabis">0</div>
+        <div class="stat-label">WAKTU HABIS</div>
+    </div>
+
+</div>
+
+
+<!-- RINGKASAN GAME -->
+
+<div class="section-title">
+    🎮 STATUS GAME
+</div>
+
+<div class="game-summary" id="gameSummary"></div>
+
+
+<!-- ANTREAN -->
+
+<div class="section-title">
+    🎫 SEMUA ANTREAN
+</div>
+
+<div id="queueList" class="queue-list">
+    <div class="empty">
+        Memuat data...
     </div>
 </div>
 
-<div id="statusKoneksi">
-    Menghubungkan ke server...
 </div>
 
-<div class="summary">
-    <div class="summaryBox">
-        <div class="summaryNumber" id="jmlWaiting">0</div>
-        <div class="summaryLabel">MENUNGGU</div>
-    </div>
-
-    <div class="summaryBox">
-        <div class="summaryNumber" id="jmlCalled">0</div>
-        <div class="summaryLabel">DIPANGGIL</div>
-    </div>
-
-    <div class="summaryBox">
-        <div class="summaryNumber" id="jmlPlaying">0</div>
-        <div class="summaryLabel">SEDANG MAIN</div>
-    </div>
-
-    <div class="summaryBox">
-        <div class="summaryNumber" id="jmlExpired">0</div>
-        <div class="summaryLabel">WAKTU HABIS</div>
-    </div>
-</div>
-
-<div class="notice">
-    🎮 Gunakan dashboard ini untuk memanggil customer, memulai sesi,
-    mengatur waktu, dan menyelesaikan permainan.
-</div>
-
-<div class="section">
-    <div class="sectionTitle">
-        🎮 ANTREAN & SESI BERMAIN
-    </div>
-
-    <div id="gameContainer"></div>
-</div>
 
 <script>
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbzRkt6iHzcNTegWjfkc8JKoch4sB1_iF-lRsBIAbqgDqVJHO9ytQHbFF5O6R7mSiw5fSA/exec";
 
-const JENIS_GAME = [
+
+const GAMES = [
     "PS5",
     "PS4",
     "Nintendo",
     "Racing"
 ];
 
+
 let semuaAntrean = [];
+
 let sedangProses = false;
 
 
@@ -427,10 +433,9 @@ async function panggilAPI(params) {
         "?" +
         new URLSearchParams(params).toString();
 
-    const response =
-        await fetch(url, {
-            cache: "no-store"
-        });
+    const response = await fetch(url, {
+        cache: "no-store"
+    });
 
     return await response.json();
 }
@@ -456,19 +461,19 @@ async function muatData() {
             return;
         }
 
-        semuaAntrean = hasil.data;
+        semuaAntrean = hasil.data || [];
 
-        const status =
-            document.getElementById("statusKoneksi");
+        document.getElementById("connection").textContent =
+            "Terhubung — data tersinkron • " +
+            new Date().toLocaleTimeString("id-ID");
 
-        status.textContent =
-            "Terhubung — data tersinkron";
-
-        status.classList.remove("error");
+        document
+            .getElementById("connection")
+            .classList.remove("error");
 
         render();
 
-    } catch (error) {
+    } catch(error) {
 
         tampilkanError(error.toString());
 
@@ -476,126 +481,33 @@ async function muatData() {
 }
 
 
-function tampilkanError(pesan) {
+function tampilkanError(message) {
 
     const el =
-        document.getElementById("statusKoneksi");
+        document.getElementById("connection");
 
     el.textContent =
-        "Gagal terhubung ke server — " + pesan;
+        "Gagal terhubung ke server";
 
     el.classList.add("error");
+
+    console.error(message);
 }
 
 
 /* =========================
-   TIMER
+   CALL QUEUE
 ========================= */
 
-function hitungSisaDetik(item) {
+async function panggilAntrean(game) {
 
-    if (
-        !item.mulaiMain ||
-        !item.durasiMenit
-    ) {
-        return null;
-    }
+    if (sedangProses) return;
 
-    const total =
-        Number(item.durasiMenit) * 60;
-
-    const berlalu =
-        Math.floor(
-            (Date.now() - Number(item.mulaiMain))
-            / 1000
-        );
-
-    return total - berlalu;
-}
-
-
-function formatWaktu(detik) {
-
-    if (detik === null) {
-        return "--:--";
-    }
-
-    const minus =
-        detik < 0;
-
-    const abs =
-        Math.abs(detik);
-
-    const menit =
-        Math.floor(abs / 60);
-
-    const detikSisa =
-        abs % 60;
-
-    const teks =
-        String(menit).padStart(2,"0") +
-        ":" +
-        String(detikSisa).padStart(2,"0");
-
-    return minus ? "-" + teks : teks;
-}
-
-
-/* =========================
-   STATUS
-========================= */
-
-function statusSesi(item) {
-
-    if (item.status === "WAITING") {
-        return "waiting";
-    }
-
-    if (
-        item.status === "PLAYING" &&
-        !item.mulaiMain
-    ) {
-        return "called";
-    }
-
-    if (
-        item.status === "PLAYING" &&
-        item.mulaiMain
-    ) {
-
-        const sisa =
-            hitungSisaDetik(item);
-
-        if (sisa !== null && sisa <= 0) {
-            return "expired";
-        }
-
-        return "playing";
-    }
-
-    return "waiting";
-}
-
-
-/* =========================
-   PANGGIL
-========================= */
-
-async function panggil(game) {
-
-    if (sedangProses) {
-        return;
-    }
-
-    if (
-        !confirm(
-            "Panggil customer berikutnya untuk " +
-            game +
-            "?"
-        )
-    ) {
-        return;
-    }
+    if (!confirm(
+        "Panggil antrean berikutnya untuk " +
+        game +
+        "?"
+    )) return;
 
     sedangProses = true;
 
@@ -609,55 +521,53 @@ async function panggil(game) {
 
         if (!hasil.success) {
 
+            alert(hasil.message);
+
+        } else {
+
             alert(
-                "Gagal memanggil:\n" +
-                hasil.message
+                "📣 Antrean dipanggil!\n\n" +
+                hasil.queueId +
+                "\n" +
+                hasil.customer
             );
 
-            return;
+            await muatData();
         }
 
-        alert(
-            "📣 CUSTOMER DIPANGGIL!\n\n" +
-            hasil.queueId +
-            "\n" +
-            hasil.customer
-        );
+    } catch(error) {
 
-        await muatData();
-
-    } catch (error) {
-
-        alert(
-            "Terjadi kesalahan:\n" +
-            error
-        );
-
-    } finally {
-
-        sedangProses = false;
+        alert("Terjadi kesalahan.");
 
     }
+
+    sedangProses = false;
 }
 
 
 /* =========================
-   MULAI SESI
+   START SESSION
 ========================= */
 
-async function mulai(queueId) {
+async function mulaiSesi(queueId) {
 
-    if (sedangProses) {
-        return;
-    }
+    if (sedangProses) return;
 
-    if (
-        !confirm(
-            "Mulai sesi " +
-            queueId +
-            " selama 60 menit?"
-        )
-    ) {
+    const durasi =
+        prompt(
+            "Masukkan durasi bermain dalam menit:",
+            "60"
+        );
+
+    if (durasi === null) return;
+
+    const angka =
+        parseInt(durasi);
+
+    if (!angka || angka < 1) {
+
+        alert("Durasi tidak valid.");
+
         return;
     }
 
@@ -669,45 +579,35 @@ async function mulai(queueId) {
             await panggilAPI({
                 action: "mulai",
                 queueId: queueId,
-                durasi: 60
+                durasi: angka
             });
 
         if (!hasil.success) {
 
-            alert(
-                "Gagal memulai sesi:\n" +
-                hasil.message
-            );
+            alert(hasil.message);
 
-            return;
+        } else {
+
+            await muatData();
         }
 
-        await muatData();
+    } catch(error) {
 
-    } catch (error) {
-
-        alert(
-            "Terjadi kesalahan:\n" +
-            error
-        );
-
-    } finally {
-
-        sedangProses = false;
+        alert("Gagal memulai sesi.");
 
     }
+
+    sedangProses = false;
 }
 
 
 /* =========================
-   UBAH DURASI
+   CHANGE DURATION
 ========================= */
 
 async function ubahDurasi(queueId, delta) {
 
-    if (sedangProses) {
-        return;
-    }
+    if (sedangProses) return;
 
     sedangProses = true;
 
@@ -722,50 +622,36 @@ async function ubahDurasi(queueId, delta) {
 
         if (!hasil.success) {
 
-            alert(
-                "Gagal mengubah waktu:\n" +
-                hasil.message
-            );
+            alert(hasil.message);
 
-            return;
+        } else {
+
+            await muatData();
         }
 
-        await muatData();
+    } catch(error) {
 
-    } catch (error) {
-
-        alert(
-            "Terjadi kesalahan:\n" +
-            error
-        );
-
-    } finally {
-
-        sedangProses = false;
+        alert("Gagal mengubah durasi.");
 
     }
+
+    sedangProses = false;
 }
 
 
 /* =========================
-   SELESAI
+   DONE
 ========================= */
 
-async function selesai(queueId) {
+async function selesaikan(queueId) {
 
-    if (sedangProses) {
-        return;
-    }
+    if (sedangProses) return;
 
-    if (
-        !confirm(
-            "Selesaikan sesi " +
-            queueId +
-            "?"
-        )
-    ) {
-        return;
-    }
+    if (!confirm(
+        "Yakin sesi " +
+        queueId +
+        " sudah selesai?"
+    )) return;
 
     sedangProses = true;
 
@@ -779,28 +665,107 @@ async function selesai(queueId) {
 
         if (!hasil.success) {
 
-            alert(
-                "Gagal menyelesaikan sesi:\n" +
-                hasil.message
-            );
+            alert(hasil.message);
 
-            return;
+        } else {
+
+            await muatData();
         }
 
-        await muatData();
+    } catch(error) {
 
-    } catch (error) {
-
-        alert(
-            "Terjadi kesalahan:\n" +
-            error
-        );
-
-    } finally {
-
-        sedangProses = false;
+        alert("Gagal menyelesaikan sesi.");
 
     }
+
+    sedangProses = false;
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+async function hapus(queueId) {
+
+    if (sedangProses) return;
+
+    if (!confirm(
+        "Batalkan antrean " +
+        queueId +
+        "?"
+    )) return;
+
+    sedangProses = true;
+
+    try {
+
+        const hasil =
+            await panggilAPI({
+                action: "delete",
+                queueId: queueId
+            });
+
+        if (!hasil.success) {
+
+            alert(hasil.message);
+
+        } else {
+
+            await muatData();
+        }
+
+    } catch(error) {
+
+        alert("Gagal membatalkan antrean.");
+
+    }
+
+    sedangProses = false;
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function hitungSisa(item) {
+
+    if (!item.mulaiMain ||
+        !item.durasiMenit) {
+
+        return null;
+    }
+
+    const total =
+        Number(item.durasiMenit) * 60;
+
+    const berlalu =
+        Math.floor(
+            (Date.now() -
+            Number(item.mulaiMain)) / 1000
+        );
+
+    return total - berlalu;
+}
+
+
+function formatTimer(seconds) {
+
+    if (seconds < 0)
+        seconds = Math.abs(seconds);
+
+    const menit =
+        Math.floor(seconds / 60);
+
+    const detik =
+        seconds % 60;
+
+    return (
+        String(menit).padStart(2,"0") +
+        ":" +
+        String(detik).padStart(2,"0")
+    );
 }
 
 
@@ -810,290 +775,406 @@ async function selesai(queueId) {
 
 function render() {
 
-    const container =
-        document.getElementById(
-            "gameContainer"
+    renderStats();
+
+    renderGameSummary();
+
+    renderQueue();
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+function renderStats() {
+
+    const playing =
+        semuaAntrean.filter(
+            x => x.status === "PLAYING"
         );
 
-    let totalWaiting = 0;
-    let totalCalled = 0;
-    let totalPlaying = 0;
-    let totalExpired = 0;
+    const waiting =
+        semuaAntrean.filter(
+            x => x.status === "WAITING"
+        );
+
+    let hampirHabis = 0;
+    let habis = 0;
+
+    playing.forEach(item => {
+
+        const sisa =
+            hitungSisa(item);
+
+        if (sisa !== null) {
+
+            if (sisa <= 0) {
+
+                habis++;
+
+            } else if (sisa <= 600) {
+
+                hampirHabis++;
+
+            }
+
+        }
+
+    });
+
+    document.getElementById(
+        "jumlahPlaying"
+    ).textContent = playing.length;
+
+    document.getElementById(
+        "jumlahWaiting"
+    ).textContent = waiting.length;
+
+    document.getElementById(
+        "jumlahHampirHabis"
+    ).textContent = hampirHabis;
+
+    document.getElementById(
+        "jumlahHabis"
+    ).textContent = habis;
+}
+
+
+/* =========================
+   GAME SUMMARY
+========================= */
+
+function renderGameSummary() {
+
+    const container =
+        document.getElementById(
+            "gameSummary"
+        );
 
     let html = "";
 
-    JENIS_GAME.forEach(game => {
-
-        const dataGame =
-            semuaAntrean.filter(
-                item => item.game === game
-            );
+    GAMES.forEach(game => {
 
         const waiting =
-            dataGame.filter(
-                item => item.status === "WAITING"
-            );
+            semuaAntrean.filter(
+                x =>
+                    x.game === game &&
+                    x.status === "WAITING"
+            ).length;
 
-        const active =
-            dataGame.filter(
-                item => item.status === "PLAYING"
-            );
-
-        totalWaiting += waiting.length;
-
-        active.forEach(item => {
-
-            if (!item.mulaiMain) {
-
-                totalCalled++;
-
-            } else {
-
-                const sisa =
-                    hitungSisaDetik(item);
-
-                if (
-                    sisa !== null &&
-                    sisa <= 0
-                ) {
-
-                    totalExpired++;
-
-                } else {
-
-                    totalPlaying++;
-
-                }
-            }
-        });
-
+        const playing =
+            semuaAntrean.filter(
+                x =>
+                    x.game === game &&
+                    x.status === "PLAYING"
+            ).length;
 
         html += `
-        <div class="gameSection">
 
-            <div class="gameTitle">
+            <div class="game-box">
 
-                <span class="gameName">
-                    🎮 ${game}
-                </span>
+                <div class="game-name">
+                    ${game}
+                </div>
 
-                <span class="gameCount">
-                    ${waiting.length} menunggu
-                </span>
+                <div class="game-count">
+                    🟡 ${waiting} menunggu
+                </div>
+
+                <div class="game-count">
+                    🟢 ${playing} bermain
+                </div>
 
             </div>
 
-            <div class="cardList">
+        `;
+
+    });
+
+    container.innerHTML = html;
+}
+
+
+/* =========================
+   QUEUE
+========================= */
+
+function renderQueue() {
+
+    const container =
+        document.getElementById(
+            "queueList"
+        );
+
+    if (semuaAntrean.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                Belum ada antrean aktif.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /*
+       Urutan:
+       PLAYING terlebih dahulu,
+       kemudian WAITING
+    */
+
+    const data =
+        [...semuaAntrean].sort(
+            (a,b) => {
+
+                if (
+                    a.status === "PLAYING" &&
+                    b.status !== "PLAYING"
+                ) return -1;
+
+                if (
+                    a.status !== "PLAYING" &&
+                    b.status === "PLAYING"
+                ) return 1;
+
+                return 0;
+            }
+        );
+
+
+    let html = "";
+
+
+    data.forEach(item => {
+
+        const isPlaying =
+            item.status === "PLAYING";
+
+        const sisa =
+            hitungSisa(item);
+
+
+        let cardClass =
+            isPlaying
+            ? "queue-card playing"
+            : "queue-card";
+
+
+        html += `
+        
+        <div class="${cardClass}">
+
+            <div class="queue-top">
+
+                <div>
+
+                    <div class="queue-id">
+                        ${item.queueId}
+                    </div>
+
+                    <div class="customer">
+                        👤 ${item.customer}
+                        — ${item.players} pemain
+                    </div>
+
+                    <div class="game">
+                        🎮 ${item.game}
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <span class="status ${
+                        isPlaying
+                        ? "playing"
+                        : "waiting"
+                    }">
+
+                        ${
+                            isPlaying
+                            ? "🟢 PLAYING"
+                            : "🟡 WAITING"
+                        }
+
+                    </span>
+
+                </div>
+
+            </div>
         `;
 
 
+        /* TIMER */
+
         if (
-            waiting.length === 0 &&
-            active.length === 0
+            isPlaying &&
+            item.mulaiMain &&
+            item.durasiMenit
         ) {
 
+            let timerClass = "timer";
+
+            if (sisa <= 600 && sisa > 0)
+                timerClass += " warning";
+
+            if (sisa <= 0)
+                timerClass += " expired";
+
+
             html += `
-                <div class="empty">
-                    Tidak ada antrean atau sesi aktif.
+
+                <div class="${timerClass}">
+
+                    ${
+                        sisa <= 0
+                        ? "WAKTU HABIS"
+                        : formatTimer(sisa)
+                    }
+
                 </div>
+
+                <div class="info" style="text-align:center">
+
+                    Durasi:
+                    ${item.durasiMenit} menit
+
+                </div>
+
+            `;
+
+        } else if (isPlaying) {
+
+            html += `
+
+                <div class="info">
+
+                    ⚠️ Antrean sudah dipanggil.
+                    Silakan tekan
+                    <b>MULAI SESI</b>.
+
+                </div>
+
             `;
 
         }
 
 
-        /* WAITING */
+        /* BUTTON */
 
-        waiting.forEach((item, index) => {
-
-            html += `
-            <div class="card waiting">
-
-                <div class="cardTop">
-
-                    <span class="queueId">
-                        ${item.queueId}
-                    </span>
-
-                    <span class="badge waiting">
-                        MENUNGGU
-                    </span>
-
-                </div>
-
-                <div class="customer">
-                    ${item.customer}
-                </div>
-
-                <div class="detail">
-                    ${item.players} pemain
-                </div>
-
-                ${
-                    index === 0
-                    ?
-                    `
-                    <div class="buttonRow">
-
-                        <button
-                            class="btnCall"
-                            onclick="panggil('${game}')">
-                            📣 PANGGIL CUSTOMER
-                        </button>
-
-                    </div>
-                    `
-                    :
-                    `
-                    <div class="detail" style="margin-top:10px;">
-                        ⏳ Menunggu giliran dipanggil
-                    </div>
-                    `
-                }
-
-            </div>
-            `;
-        });
+        html += `
+        
+            <div class="buttons">
+        `;
 
 
-        /* ACTIVE */
-
-        active.forEach(item => {
-
-            const status =
-                statusSesi(item);
-
-            const sisa =
-                hitungSisaDetik(item);
-
-            let badgeText = "";
-            let buttons = "";
-            let timerHtml = "";
-
-            if (status === "called") {
-
-                badgeText =
-                    "DIPANGGIL";
-
-                buttons = `
-                    <button
-                        class="btnStart"
-                        onclick="mulai('${item.queueId}')">
-                        ▶ MULAI 60 MENIT
-                    </button>
-                `;
-
-            }
-
-            else {
-
-                badgeText =
-                    status === "expired"
-                    ? "WAKTU HABIS"
-                    : "PLAYING";
-
-                timerHtml = `
-                    <div class="timer ${
-                        status === "expired"
-                        ? "expired"
-                        : (
-                            sisa <= 600
-                            ? "warning"
-                            : ""
-                        )
-                    }">
-                        ${
-                            status === "expired"
-                            ? "⚠️ " + formatWaktu(sisa)
-                            : formatWaktu(sisa)
-                        }
-                    </div>
-                `;
-
-                buttons = `
-                    <div class="buttonRow">
-
-                        <button
-                            class="btnMinus"
-                            onclick="ubahDurasi('${item.queueId}', -15)">
-                            − 15 MENIT
-                        </button>
-
-                        <button
-                            class="btnAdd"
-                            onclick="ubahDurasi('${item.queueId}', 15)">
-                            + 15 MENIT
-                        </button>
-
-                        <button
-                            class="btnDone"
-                            onclick="selesai('${item.queueId}')">
-                            ✅ SELESAI
-                        </button>
-
-                    </div>
-                `;
-            }
-
+        if (item.status === "WAITING") {
 
             html += `
-            <div class="card ${status}">
 
-                <div class="cardTop">
+                <button
+                    class="btn-call"
+                    onclick="panggilAntrean('${item.game}')">
 
-                    <span class="queueId">
-                        ${item.queueId}
-                    </span>
+                    📣 PANGGIL ${item.game}
 
-                    <span class="badge ${status}">
-                        ${badgeText}
-                    </span>
+                </button>
 
-                </div>
+                <button
+                    class="btn-delete"
+                    onclick="hapus('${item.queueId}')">
 
-                <div class="customer">
-                    ${item.customer}
-                </div>
+                    ❌ BATALKAN
 
-                <div class="detail">
-                    ${item.players} pemain — ${item.game}
-                </div>
+                </button>
 
-                ${timerHtml}
-
-                ${buttons}
-
-            </div>
             `;
 
-        });
+        }
+
+
+        if (
+            item.status === "PLAYING" &&
+            !item.mulaiMain
+        ) {
+
+            html += `
+
+                <button
+                    class="btn-start"
+                    onclick="mulaiSesi('${item.queueId}')">
+
+                    ▶️ MULAI SESI
+
+                </button>
+
+                <button
+                    class="btn-delete"
+                    onclick="hapus('${item.queueId}')">
+
+                    ❌ BATALKAN
+
+                </button>
+
+            `;
+
+        }
+
+
+        if (
+            item.status === "PLAYING" &&
+            item.mulaiMain
+        ) {
+
+            html += `
+
+                <button
+                    class="btn-add"
+                    onclick="ubahDurasi('${item.queueId}', 30)">
+
+                    +30 MENIT
+
+                </button>
+
+
+                <button
+                    class="btn-minus"
+                    onclick="ubahDurasi('${item.queueId}', -30)">
+
+                    -30 MENIT
+
+                </button>
+
+
+                <button
+                    class="btn-done"
+                    onclick="selesaikan('${item.queueId}')">
+
+                    ✅ SELESAI
+
+                </button>
+
+            `;
+
+        }
 
 
         html += `
+
             </div>
+
         </div>
+
         `;
 
     });
 
 
     container.innerHTML = html;
-
-
-    document.getElementById(
-        "jmlWaiting"
-    ).textContent = totalWaiting;
-
-    document.getElementById(
-        "jmlCalled"
-    ).textContent = totalCalled;
-
-    document.getElementById(
-        "jmlPlaying"
-    ).textContent = totalPlaying;
-
-    document.getElementById(
-        "jmlExpired"
-    ).textContent = totalExpired;
 }
 
 
@@ -1103,10 +1184,22 @@ function render() {
 
 muatData();
 
+
+/*
+   Sinkronisasi server
+   setiap 3 detik
+*/
+
 setInterval(
     muatData,
     3000
 );
+
+
+/*
+   Update timer
+   setiap 1 detik
+*/
 
 setInterval(
     render,
