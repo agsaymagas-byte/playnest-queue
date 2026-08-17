@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    content="width=device-width, initial-scale=1.0"
 >
 
-<meta
-    name="theme-color"
-    content="#090314"
->
+<title>PLAYNEST CONTROL</title>
 
-<title>PLAYNEST CONTROL — CAPTAIN</title>
 
 <style>
+
+/* =========================
+   ROOT
+========================= */
 
 :root {
 
     --bg: #090314;
+
     --surface: #120720;
+
     --surface2: #190b2d;
 
     --purple: #8b5cf6;
+
     --purple2: #c084fc;
 
     --green: #4ade80;
+
     --yellow: #facc15;
+
     --red: #f87171;
-    --blue: #60a5fa;
 
     --text: #f5efff;
+
     --muted: #a99bd1;
 
-    --border: rgba(192,132,252,.14);
-
 }
+
+
+/* =========================
+   RESET
+========================= */
 
 * {
+
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+
 }
 
+
 html {
+
     scroll-behavior: smooth;
+
 }
+
 
 body {
 
@@ -64,247 +78,18 @@ body {
 
     color: var(--text);
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, sans-serif;
 
-    padding:
-        24px 12px 60px;
+    padding: 30px 16px 70px;
 
 }
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
-
-#loginScreen {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 99999;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    background:
-        radial-gradient(
-            circle at top,
-            #24103f,
-            #090314 65%,
-            #050208
-        );
-
-}
-
-.login-box {
-
-    width: 100%;
-
-    max-width: 380px;
-
-    padding: 32px 24px;
-
-    text-align: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(25,11,45,.96),
-            rgba(9,3,20,.98)
-        );
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 24px;
-
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.55),
-        0 0 40px rgba(139,92,246,.08);
-
-}
-
-.login-logo {
-
-    color: var(--purple2);
-
-    font-size: 13px;
-
-    letter-spacing: 8px;
-
-    margin-bottom: 14px;
-
-}
-
-.login-title {
-
-    font-size: 28px;
-
-    font-weight: 900;
-
-    letter-spacing: 3px;
-
-}
-
-.login-subtitle {
-
-    margin-top: 8px;
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    letter-spacing: 2px;
-
-}
-
-.lock-icon {
-
-    width: 74px;
-
-    height: 74px;
-
-    margin: 28px auto 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(139,92,246,.30),
-            rgba(139,92,246,.05)
-        );
-
-    border:
-        1px solid rgba(192,132,252,.20);
-
-    font-size: 34px;
-
-    box-shadow:
-        0 0 30px rgba(139,92,246,.20);
-
-}
-
-.pin-label {
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    letter-spacing: 1.5px;
-
-    margin-bottom: 10px;
-
-}
-
-.pin-input {
-
-    width: 100%;
-
-    padding: 15px;
-
-    text-align: center;
-
-    font-size: 24px;
-
-    letter-spacing: 12px;
-
-    color: white;
-
-    background: #08020f;
-
-    border:
-        1px solid rgba(192,132,252,.18);
-
-    border-radius: 12px;
-
-    outline: none;
-
-}
-
-.pin-input:focus {
-
-    border-color: var(--purple);
-
-    box-shadow:
-        0 0 20px rgba(139,92,246,.15);
-
-}
-
-.login-button {
-
-    width: 100%;
-
-    margin-top: 16px;
-
-    padding: 14px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    color: white;
-
-    font-weight: 800;
-
-    font-size: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7c3aed,
-            #6d28d9
-        );
-
-    cursor: pointer;
-
-}
-
-.login-button:active {
-    transform: scale(.98);
-}
-
-.login-error {
-
-    min-height: 20px;
-
-    margin-top: 12px;
-
-    color: var(--red);
-
-    font-size: 12px;
-
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-#app {
-
-    display: none;
-
-}
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
-
-    width: 100%;
 
     max-width: 1100px;
 
@@ -313,23 +98,24 @@ body {
 }
 
 
-/* =====================================================
+/* =========================
    HEADER
-===================================================== */
+========================= */
 
 header {
 
     text-align: center;
 
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 
 }
 
+
 .logo {
 
-    font-size: 13px;
+    font-size: 14px;
 
-    letter-spacing: 8px;
+    letter-spacing: 7px;
 
     color: var(--purple2);
 
@@ -337,17 +123,19 @@ header {
 
 }
 
+
 h1 {
 
     margin: 0;
 
-    font-size: 32px;
+    font-size: 34px;
 
-    letter-spacing: 5px;
+    letter-spacing: 6px;
 
-    font-weight: 900;
+    font-weight: 800;
 
 }
+
 
 .subtitle {
 
@@ -361,15 +149,17 @@ h1 {
 
 }
 
+
 #connection {
 
     margin-top: 16px;
 
     color: var(--muted);
 
-    font-size: 12px;
+    font-size: 13px;
 
 }
+
 
 #connection.error {
 
@@ -378,70 +168,9 @@ h1 {
 }
 
 
-/* =====================================================
-   TOP ACTIONS
-===================================================== */
-
-.top-actions {
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    flex-wrap: wrap;
-
-    margin-bottom: 25px;
-
-}
-
-.action-button {
-
-    border: 1px solid rgba(192,132,252,.12);
-
-    background:
-        rgba(18,7,32,.80);
-
-    color: var(--text);
-
-    padding: 10px 13px;
-
-    border-radius: 10px;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-}
-
-.action-button:active {
-    transform: scale(.97);
-}
-
-.action-button.primary {
-
-    background:
-        linear-gradient(
-            135deg,
-            #7c3aed,
-            #6d28d9
-        );
-
-}
-
-.action-button.logout {
-
-    color: var(--red);
-
-}
-
-
-/* =====================================================
+/* =========================
    STATISTICS
-===================================================== */
+========================= */
 
 .stats {
 
@@ -456,13 +185,15 @@ h1 {
 
 }
 
+
 .stat {
 
     background:
         rgba(18,7,32,.85);
 
     border:
-        1px solid rgba(192,132,252,.12);
+        1px solid
+        rgba(192,132,252,.12);
 
     border-radius: 18px;
 
@@ -471,6 +202,7 @@ h1 {
     text-align: center;
 
 }
+
 
 .stat-number {
 
@@ -482,22 +214,23 @@ h1 {
 
 }
 
+
 .stat-label {
 
     margin-top: 5px;
 
     color: var(--muted);
 
-    font-size: 10px;
+    font-size: 11px;
 
     letter-spacing: 1.5px;
 
 }
 
 
-/* =====================================================
+/* =========================
    SECTION
-===================================================== */
+========================= */
 
 .section-title {
 
@@ -509,15 +242,14 @@ h1 {
 
     letter-spacing: 3px;
 
-    margin:
-        35px 0 18px;
+    margin: 35px 0 18px;
 
 }
 
 
-/* =====================================================
+/* =========================
    GAME SUMMARY
-===================================================== */
+========================= */
 
 .game-summary {
 
@@ -530,29 +262,33 @@ h1 {
 
 }
 
+
 .game-box {
 
     background:
-        rgba(18,7,32,.70);
+        rgba(18,7,32,.7);
 
     border:
-        1px solid rgba(255,255,255,.06);
+        1px solid
+        rgba(255,255,255,.06);
 
     border-radius: 14px;
 
-    padding: 16px 8px;
+    padding: 14px 8px;
 
     text-align: center;
 
 }
 
+
 .game-name {
 
     font-weight: bold;
 
-    margin-bottom: 7px;
+    margin-bottom: 6px;
 
 }
+
 
 .game-count {
 
@@ -560,14 +296,14 @@ h1 {
 
     font-size: 12px;
 
-    line-height: 20px;
+    margin-top: 3px;
 
 }
 
 
-/* =====================================================
-   QUEUE
-===================================================== */
+/* =========================
+   QUEUE LIST
+========================= */
 
 .queue-list {
 
@@ -576,6 +312,7 @@ h1 {
     gap: 14px;
 
 }
+
 
 .queue-card {
 
@@ -587,18 +324,23 @@ h1 {
         );
 
     border:
-        1px solid rgba(255,255,255,.06);
+        1px solid
+        rgba(255,255,255,.06);
 
     border-left:
-        4px solid var(--yellow);
+        4px solid
+        var(--yellow);
 
     border-radius: 18px;
 
     padding: 20px;
 
-    overflow: hidden;
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
 
 }
+
 
 .queue-card.playing {
 
@@ -611,26 +353,31 @@ h1 {
 
 }
 
-.queue-card.called {
 
-    border-left-color:
-        var(--blue);
+.queue-card:hover {
+
+    transform:
+        translateY(-1px);
 
 }
+
+
+/* =========================
+   QUEUE TOP
+========================= */
 
 .queue-top {
 
     display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
     gap: 15px;
 
-    align-items:
-        flex-start;
+    align-items: flex-start;
 
 }
+
 
 .queue-id {
 
@@ -646,23 +393,30 @@ h1 {
 
 }
 
+
 .customer {
 
-    margin-top: 6px;
+    margin-top: 5px;
 
     font-size: 15px;
 
 }
 
+
 .game {
 
-    margin-top: 6px;
+    margin-top: 5px;
 
     color: var(--muted);
 
     font-size: 13px;
 
 }
+
+
+/* =========================
+   STATUS
+========================= */
 
 .status {
 
@@ -672,15 +426,14 @@ h1 {
 
     border-radius: 20px;
 
-    font-size: 10px;
+    font-size: 11px;
 
     font-weight: bold;
 
     letter-spacing: .5px;
 
-    white-space: nowrap;
-
 }
+
 
 .status.waiting {
 
@@ -692,6 +445,7 @@ h1 {
 
 }
 
+
 .status.playing {
 
     background:
@@ -702,20 +456,10 @@ h1 {
 
 }
 
-.status.called {
 
-    background:
-        rgba(96,165,250,.12);
-
-    color:
-        var(--blue);
-
-}
-
-
-/* =====================================================
+/* =========================
    TIMER
-===================================================== */
+========================= */
 
 .timer {
 
@@ -736,37 +480,22 @@ h1 {
 
 }
 
+
 .timer.warning {
 
     color:
         var(--yellow);
 
-    animation:
-        pulse 1.5s infinite;
-
 }
+
 
 .timer.expired {
 
     color:
         var(--red);
 
-    animation:
-        pulse .8s infinite;
-
 }
 
-@keyframes pulse {
-
-    0%,100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: .55;
-    }
-
-}
 
 .info {
 
@@ -777,14 +506,12 @@ h1 {
 
     margin-top: 12px;
 
-    line-height: 20px;
-
 }
 
 
-/* =====================================================
+/* =========================
    BUTTONS
-===================================================== */
+========================= */
 
 .buttons {
 
@@ -798,13 +525,14 @@ h1 {
 
 }
 
+
 button {
 
     border: none;
 
     border-radius: 10px;
 
-    padding: 12px 14px;
+    padding: 11px 15px;
 
     color: white;
 
@@ -812,9 +540,30 @@ button {
 
     cursor: pointer;
 
-    font-size: 12px;
+    font-size: 13px;
+
+    transition:
+        transform .12s ease,
+        opacity .12s ease;
 
 }
+
+
+button:hover {
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+button:active {
+
+    transform:
+        scale(.98);
+
+}
+
 
 button:disabled {
 
@@ -823,6 +572,11 @@ button:disabled {
     cursor: not-allowed;
 
 }
+
+
+/* =========================
+   BUTTON COLORS
+========================= */
 
 .btn-call {
 
@@ -835,6 +589,7 @@ button:disabled {
 
 }
 
+
 .btn-start {
 
     background:
@@ -845,6 +600,7 @@ button:disabled {
         );
 
 }
+
 
 .btn-add {
 
@@ -857,6 +613,7 @@ button:disabled {
 
 }
 
+
 .btn-minus {
 
     background:
@@ -868,6 +625,7 @@ button:disabled {
 
 }
 
+
 .btn-done {
 
     background:
@@ -878,6 +636,7 @@ button:disabled {
         );
 
 }
+
 
 .btn-delete {
 
@@ -891,9 +650,21 @@ button:disabled {
 }
 
 
-/* =====================================================
+.btn-refresh {
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4338ca
+        );
+
+}
+
+
+/* =========================
    EMPTY
-===================================================== */
+========================= */
 
 .empty {
 
@@ -908,197 +679,19 @@ button:disabled {
 }
 
 
-/* =====================================================
-   NOTIFICATION TOAST
-===================================================== */
-
-#toastContainer {
-
-    position: fixed;
-
-    top: 16px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    z-index: 9999;
-
-    width:
-        min(92%, 430px);
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap: 8px;
-
-    pointer-events:
-        none;
-
-}
-
-.toast {
-
-    pointer-events:
-        auto;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1d0b32,
-            #0d0418
-        );
-
-    border:
-        1px solid
-        rgba(192,132,252,.20);
-
-    border-left:
-        4px solid
-        var(--purple2);
-
-    border-radius:
-        14px;
-
-    padding:
-        13px 15px;
-
-    box-shadow:
-        0 10px 40px
-        rgba(0,0,0,.45);
-
-    animation:
-        toastIn .25s ease;
-
-}
-
-.toast.warning {
-
-    border-left-color:
-        var(--yellow);
-
-}
-
-.toast.danger {
-
-    border-left-color:
-        var(--red);
-
-}
-
-.toast.success {
-
-    border-left-color:
-        var(--green);
-
-}
-
-.toast-title {
-
-    font-weight:
-        800;
-
-    font-size:
-        13px;
-
-}
-
-.toast-text {
-
-    margin-top:
-        4px;
-
-    color:
-        var(--muted);
-
-    font-size:
-        12px;
-
-    line-height:
-        18px;
-
-}
-
-@keyframes toastIn {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(-15px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* =====================================================
-   NOTIFICATION PANEL
-===================================================== */
-
-.notification-box {
-
-    margin-top:
-        18px;
-
-    background:
-        rgba(18,7,32,.65);
-
-    border:
-        1px solid
-        rgba(192,132,252,.10);
-
-    border-radius:
-        14px;
-
-    padding:
-        13px;
-
-    text-align:
-        center;
-
-    color:
-        var(--muted);
-
-    font-size:
-        11px;
-
-}
-
-.notification-box strong {
-
-    color:
-        var(--purple2);
-
-}
-
-
-/* =====================================================
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
 @media(max-width:700px) {
 
     body {
 
         padding:
-            18px 12px 50px;
+            20px 12px 50px;
 
     }
+
 
     h1 {
 
@@ -1110,6 +703,7 @@ button:disabled {
 
     }
 
+
     .subtitle {
 
         font-size:
@@ -1120,6 +714,7 @@ button:disabled {
 
     }
 
+
     .stats {
 
         grid-template-columns:
@@ -1127,12 +722,14 @@ button:disabled {
 
     }
 
+
     .game-summary {
 
         grid-template-columns:
             repeat(2, 1fr);
 
     }
+
 
     .queue-top {
 
@@ -1141,12 +738,6 @@ button:disabled {
 
     }
 
-    .queue-id {
-
-        font-size:
-            23px;
-
-    }
 
     .timer {
 
@@ -1155,65 +746,44 @@ button:disabled {
 
     }
 
-    .buttons {
 
-        display:
-            grid;
+    button {
 
-        grid-template-columns:
-            repeat(2, 1fr);
+        flex:
+            1;
 
-    }
-
-    .buttons button {
-
-        width:
-            100%;
-
-        min-height:
-            45px;
-
-    }
-
-    .btn-call {
-
-        grid-column:
-            span 2;
+        min-width:
+            90px;
 
     }
 
 }
 
 
-/* =====================================================
+/* =========================
    VERY SMALL PHONE
-===================================================== */
+========================= */
 
 @media(max-width:380px) {
 
     body {
 
         padding-left:
-            8px;
+            9px;
 
         padding-right:
-            8px;
+            9px;
 
     }
 
-    .stats {
 
-        gap:
-            8px;
+    h1 {
 
-    }
-
-    .stat {
-
-        padding:
-            15px 5px;
+        font-size:
+            22px;
 
     }
+
 
     .stat-number {
 
@@ -1222,17 +792,11 @@ button:disabled {
 
     }
 
-    .game-summary {
 
-        gap:
-            8px;
+    .queue-id {
 
-    }
-
-    .queue-card {
-
-        padding:
-            16px;
+        font-size:
+            22px;
 
     }
 
@@ -1246,91 +810,29 @@ button:disabled {
 <body>
 
 
-<!-- =====================================================
-     LOGIN SCREEN
-===================================================== -->
-
-<div id="loginScreen">
-
-    <div class="login-box">
-
-        <div class="login-logo">
-            PLAYNEST
-        </div>
-
-        <div class="login-title">
-            PLAYNEST CONTROL
-        </div>
-
-        <div class="login-subtitle">
-            CAPTAIN ACCESS
-        </div>
-
-        <div class="lock-icon">
-            🔐
-        </div>
-
-        <div class="pin-label">
-            MASUKKAN PIN CAPTAIN
-        </div>
-
-        <input
-            id="pinInput"
-            class="pin-input"
-            type="password"
-            inputmode="numeric"
-            maxlength="4"
-            autocomplete="off"
-            placeholder="••••"
-        >
-
-        <button
-            class="login-button"
-            id="loginButton"
-            type="button"
-        >
-            MASUK
-        </button>
-
-        <div
-            id="loginError"
-            class="login-error"
-        ></div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div id="toastContainer"></div>
-
-
-<!-- =====================================================
-     MAIN APP
-===================================================== -->
-
-<div id="app">
-
 <div class="container">
 
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
     <div class="logo">
-        P L A Y N E S T
+        PLAYNEST
     </div>
+
 
     <h1>
         PLAYNEST CONTROL
     </h1>
 
+
     <div class="subtitle">
         DASHBOARD CAPTAIN — LIVE MONITORING
     </div>
+
 
     <div id="connection">
         Menghubungkan ke server...
@@ -1339,44 +841,13 @@ button:disabled {
 </header>
 
 
-<!-- =====================================================
-     TOP ACTION
-===================================================== -->
 
-<div class="top-actions">
-
-    <button
-        class="action-button primary"
-        id="notificationButton"
-        type="button"
-    >
-        🔔 AKTIFKAN NOTIFIKASI
-    </button>
-
-    <button
-        class="action-button"
-        id="refreshButton"
-        type="button"
-    >
-        🔄 REFRESH
-    </button>
-
-    <button
-        class="action-button logout"
-        id="logoutButton"
-        type="button"
-    >
-        🔒 KELUAR
-    </button>
-
-</div>
-
-
-<!-- =====================================================
-     STATISTICS
-===================================================== -->
+<!-- =========================
+     STATISTIK
+========================= -->
 
 <div class="stats">
+
 
     <div class="stat">
 
@@ -1392,6 +863,7 @@ button:disabled {
         </div>
 
     </div>
+
 
 
     <div class="stat">
@@ -1410,6 +882,7 @@ button:disabled {
     </div>
 
 
+
     <div class="stat">
 
         <div
@@ -1424,6 +897,7 @@ button:disabled {
         </div>
 
     </div>
+
 
 
     <div class="stat">
@@ -1441,30 +915,40 @@ button:disabled {
 
     </div>
 
+
 </div>
 
 
-<!-- =====================================================
-     GAME SUMMARY
-===================================================== -->
+
+<!-- =========================
+     STATUS GAME
+========================= -->
 
 <div class="section-title">
+
     🎮 STATUS GAME
+
 </div>
+
 
 <div
     class="game-summary"
     id="gameSummary"
-></div>
+>
+</div>
 
 
-<!-- =====================================================
-     QUEUE
-===================================================== -->
+
+<!-- =========================
+     SEMUA ANTREAN
+========================= -->
 
 <div class="section-title">
+
     🎫 SEMUA ANTREAN
+
 </div>
+
 
 <div
     id="queueList"
@@ -1472,286 +956,53 @@ button:disabled {
 >
 
     <div class="empty">
+
         Memuat data...
+
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     NOTIFICATION STATUS
-===================================================== -->
-
-<div class="notification-box">
-
-    🔔 Status notifikasi:
-    <strong id="notificationStatus">
-        belum diaktifkan
-    </strong>
-
 </div>
 
-
-</div>
-
-</div>
 
 
 <script>
+
 
 /* =====================================================
    CONFIGURATION
 ===================================================== */
 
+
 const API_URL =
 "https://script.google.com/macros/s/AKfycbzRkt6iHzcNTegWjfkc8JKoch4sB1_iF-lRsBIAbqgDqVJHO9ytQHbFF5O6R7mSiw5fSA/exec";
 
 
-/*
-   PIN CAPTAIN
-
-   Untuk versi ini:
-   1234
-*/
-
-const CAPTAIN_PIN = "1234";
-
-
-/*
-   Daftar game PLAYNEST
-*/
-
 const GAMES = [
 
     "PS5",
+
     "PS4",
+
     "Nintendo",
+
     "Racing"
 
 ];
 
 
-/*
-   Interval sinkronisasi.
-
-   5 detik lebih ringan untuk HP
-   dibanding request setiap 1 detik.
-*/
-
-const REFRESH_INTERVAL = 5000;
-
-
-/*
-   Peringatan waktu.
-
-   10 menit sebelum habis.
-*/
-
-const WARNING_SECONDS = 600;
-
-
-/* =====================================================
-   STATE
-===================================================== */
-
 let semuaAntrean = [];
 
 let sedangProses = false;
 
-let sudahLogin = false;
-
-
-/*
-   Menyimpan ID notifikasi
-   agar tidak muncul berulang-ulang.
-*/
-
-let notifikasiSudahMuncul =
-    new Set();
-
-
-/*
-   Menyimpan status antrean
-   sebelumnya untuk mendeteksi perubahan.
-*/
-
-let snapshotLama =
-    new Map();
-
-
-/*
-   Menyimpan status peringatan timer.
-*/
-
-let warningSudahMuncul =
-    new Set();
-
-let expiredSudahMuncul =
-    new Set();
-
-
-/* =====================================================
-   ELEMENT
-===================================================== */
-
-const loginScreen =
-    document.getElementById(
-        "loginScreen"
-    );
-
-const app =
-    document.getElementById(
-        "app"
-    );
-
-const pinInput =
-    document.getElementById(
-        "pinInput"
-    );
-
-const loginButton =
-    document.getElementById(
-        "loginButton"
-    );
-
-const loginError =
-    document.getElementById(
-        "loginError"
-    );
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-function loginCaptain() {
-
-    const pin =
-        pinInput.value.trim();
-
-
-    if (pin === CAPTAIN_PIN) {
-
-        sudahLogin = true;
-
-        sessionStorage.setItem(
-            "playnestCaptainLogin",
-            "true"
-        );
-
-        loginError.textContent =
-            "";
-
-        loginScreen.style.display =
-            "none";
-
-        app.style.display =
-            "block";
-
-        muatData();
-
-        tampilkanToast(
-            "LOGIN BERHASIL",
-            "Selamat datang, Captain.",
-            "success"
-        );
-
-        return;
-    }
-
-
-    loginError.textContent =
-        "❌ PIN Captain salah.";
-
-    pinInput.value =
-        "";
-
-    pinInput.focus();
-
-}
-
-
-loginButton.addEventListener(
-    "click",
-    loginCaptain
-);
-
-
-pinInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Enter") {
-
-            loginCaptain();
-
-        }
-
-    }
-);
-
-
-/*
-   Cek session login.
-*/
-
-if (
-    sessionStorage.getItem(
-        "playnestCaptainLogin"
-    ) === "true"
-) {
-
-    sudahLogin = true;
-
-    loginScreen.style.display =
-        "none";
-
-    app.style.display =
-        "block";
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-document
-    .getElementById("logoutButton")
-    .addEventListener(
-        "click",
-        function() {
-
-            if (
-                !confirm(
-                    "Keluar dari dashboard Captain?"
-                )
-            ) return;
-
-            sessionStorage.removeItem(
-                "playnestCaptainLogin"
-            );
-
-            sudahLogin = false;
-
-            app.style.display =
-                "none";
-
-            loginScreen.style.display =
-                "flex";
-
-            pinInput.value =
-                "";
-
-            pinInput.focus();
-
-        }
-    );
 
 
 /* =====================================================
    API
 ===================================================== */
+
 
 async function panggilAPI(params) {
 
@@ -1762,9 +1013,7 @@ async function panggilAPI(params) {
     const url =
         API_URL +
         "?" +
-        new URLSearchParams(
-            params
-        ).toString();
+        new URLSearchParams(params).toString();
 
 
     const response =
@@ -1780,7 +1029,7 @@ async function panggilAPI(params) {
     if (!response.ok) {
 
         throw new Error(
-            "HTTP " +
+            "HTTP Error " +
             response.status
         );
 
@@ -1796,19 +1045,21 @@ async function panggilAPI(params) {
 }
 
 
+
 /* =====================================================
    LOAD DATA
 ===================================================== */
 
-async function muatData() {
 
-    if (!sudahLogin) return;
+async function muatData() {
 
     try {
 
         const hasil =
             await panggilAPI({
+
                 action: "list"
+
             });
 
 
@@ -1818,8 +1069,9 @@ async function muatData() {
         ) {
 
             tampilkanError(
-                hasil?.message ||
-                "Server mengembalikan error."
+                hasil
+                ? hasil.message
+                : "Server tidak memberikan data."
             );
 
             return;
@@ -1827,26 +1079,10 @@ async function muatData() {
         }
 
 
-        const dataBaru =
-            Array.isArray(
-                hasil.data
-            )
+        semuaAntrean =
+            Array.isArray(hasil.data)
             ? hasil.data
             : [];
-
-
-        /*
-           Cek perubahan sebelum
-           mengganti data.
-        */
-
-        deteksiPerubahan(
-            dataBaru
-        );
-
-
-        semuaAntrean =
-            dataBaru;
 
 
         const connection =
@@ -1873,471 +1109,83 @@ async function muatData() {
 
     } catch(error) {
 
-        /*
-           Jangan menghapus data lama
-           ketika koneksi gagal.
-        */
-
         tampilkanError(
-            error.message
+            error.message ||
+            error.toString()
         );
 
     }
 
 }
+
 
 
 /* =====================================================
    ERROR
 ===================================================== */
 
-function tampilkanError(
-    message
-) {
 
-    const connection =
+function tampilkanError(message) {
+
+    const el =
         document.getElementById(
             "connection"
         );
 
 
-    connection.textContent =
+    el.textContent =
         "Gagal terhubung ke server";
 
 
-    connection.classList.add(
+    el.classList.add(
         "error"
     );
 
 
     console.error(
-        "PLAYNEST API:",
+        "PLAYNEST ERROR:",
         message
     );
 
 }
 
 
-/* =====================================================
-   TOAST
-===================================================== */
-
-function tampilkanToast(
-    title,
-    text,
-    type = ""
-) {
-
-    const container =
-        document.getElementById(
-            "toastContainer"
-        );
-
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-
-    toast.className =
-        "toast " +
-        type;
-
-
-    toast.innerHTML = `
-
-        <div class="toast-title">
-            ${escapeHTML(title)}
-        </div>
-
-        <div class="toast-text">
-            ${escapeHTML(text)}
-        </div>
-
-    `;
-
-
-    container.appendChild(
-        toast
-    );
-
-
-    setTimeout(
-        function() {
-
-            toast.remove();
-
-        },
-        5000
-    );
-
-}
-
 
 /* =====================================================
-   BROWSER NOTIFICATION
+   PANGGIL ANTREAN
 ===================================================== */
 
-function updateNotificationStatus() {
 
-    const status =
-        document.getElementById(
-            "notificationStatus"
-        );
-
-    const button =
-        document.getElementById(
-            "notificationButton"
-        );
-
-
-    if (
-        !("Notification" in window)
-    ) {
-
-        status.textContent =
-            "tidak didukung browser";
-
-        button.textContent =
-            "🔔 NOTIFIKASI TIDAK DIDUKUNG";
-
-        button.disabled =
-            true;
-
-        return;
-
-    }
-
-
-    if (
-        Notification.permission ===
-        "granted"
-    ) {
-
-        status.textContent =
-            "aktif";
-
-        button.textContent =
-            "🔔 NOTIFIKASI AKTIF";
-
-        return;
-
-    }
-
-
-    if (
-        Notification.permission ===
-        "denied"
-    ) {
-
-        status.textContent =
-            "diblokir browser";
-
-        button.textContent =
-            "🔔 NOTIFIKASI DIBLOKIR";
-
-        return;
-
-    }
-
-
-    status.textContent =
-        "belum diaktifkan";
-
-    button.textContent =
-        "🔔 AKTIFKAN NOTIFIKASI";
-
-}
-
-
-async function aktifkanNotifikasi() {
-
-    if (
-        !("Notification" in window)
-    ) {
-
-        tampilkanToast(
-            "NOTIFIKASI TIDAK DIDUKUNG",
-            "Browser HP ini tidak menyediakan Notification API.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const permission =
-            await Notification.requestPermission();
-
-
-        updateNotificationStatus();
-
-
-        if (
-            permission ===
-            "granted"
-        ) {
-
-            tampilkanToast(
-                "NOTIFIKASI AKTIF",
-                "Captain akan menerima peringatan penting.",
-                "success"
-            );
-
-            kirimNotifikasi(
-                "PLAYNEST CONTROL",
-                "Notifikasi Captain berhasil diaktifkan."
-            );
-
-        }
-
-    } catch(error) {
-
-        console.error(error);
-
-    }
-
-}
-
-
-function kirimNotifikasi(
-    title,
-    body
-) {
-
-    if (
-        !("Notification" in window)
-    ) return;
-
-
-    if (
-        Notification.permission !==
-        "granted"
-    ) return;
-
-
-    try {
-
-        new Notification(
-            title,
-            {
-                body: body,
-                icon: "",
-                tag:
-                    "playnest-" +
-                    Date.now()
-            }
-        );
-
-    } catch(error) {
-
-        console.error(
-            "Notification error:",
-            error
-        );
-
-    }
-
-}
-
-
-document
-    .getElementById(
-        "notificationButton"
-    )
-    .addEventListener(
-        "click",
-        aktifkanNotifikasi
-    );
-
-
-updateNotificationStatus();
-
-
-/* =====================================================
-   DETEKSI PERUBAHAN
-===================================================== */
-
-function deteksiPerubahan(
-    dataBaru
-) {
-
-    const snapshotBaru =
-        new Map();
-
-
-    dataBaru.forEach(
-        function(item) {
-
-            if (!item.queueId)
-                return;
-
-
-            const id =
-                String(
-                    item.queueId
-                );
-
-
-            const status =
-                String(
-                    item.status ||
-                    ""
-                );
-
-
-            snapshotBaru.set(
-                id,
-                status
-            );
-
-
-            /*
-               Antrean baru masuk.
-            */
-
-            if (
-                !snapshotLama.has(id) &&
-                status === "WAITING"
-            ) {
-
-                const key =
-                    "new-" +
-                    id;
-
-
-                if (
-                    !notifikasiSudahMuncul.has(
-                        key
-                    )
-                ) {
-
-                    notifikasiSudahMuncul.add(
-                        key
-                    );
-
-
-                    const nama =
-                        item.customer ||
-                        "Customer";
-
-
-                    const game =
-                        item.game ||
-                        "";
-
-
-                    tampilkanToast(
-                        "🎫 ANTREAN BARU",
-                        id +
-                        " — " +
-                        nama +
-                        " • " +
-                        game,
-                        "warning"
-                    );
-
-
-                    kirimNotifikasi(
-                        "🎫 Antrean Baru",
-                        id +
-                        " — " +
-                        nama +
-                        " • " +
-                        game
-                    );
-
-                }
-
-            }
-
-
-            /*
-               Antrean dipanggil.
-            */
-
-            if (
-                snapshotLama.has(id) &&
-                snapshotLama.get(id) !== status &&
-                status === "PLAYING" &&
-                !item.mulaiMain
-            ) {
-
-                const key =
-                    "called-" +
-                    id;
-
-
-                if (
-                    !notifikasiSudahMuncul.has(
-                        key
-                    )
-                ) {
-
-                    notifikasiSudahMuncul.add(
-                        key
-                    );
-
-
-                    tampilkanToast(
-                        "📣 ANTREAN DIPANGGIL",
-                        id +
-                        " — " +
-                        (
-                            item.customer ||
-                            "Customer"
-                        ),
-                        "success"
-                    );
-
-
-                    kirimNotifikasi(
-                        "📣 Antrean Dipanggil",
-                        id +
-                        " — Silakan mulai sesi."
-                    );
-
-                }
-
-            }
-
-        }
-    );
-
-
-    snapshotLama =
-        snapshotBaru;
-
-}
-
-
-/* =====================================================
-   CALL QUEUE
-===================================================== */
-
-async function panggilAntrean(
-    game
-) {
+async function panggilAntrean(game) {
 
     if (sedangProses)
         return;
 
 
-    if (
-        !confirm(
-            "Panggil antrean berikutnya untuk " +
+    if (!game) {
+
+        alert(
+            "Game tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    const yakin =
+        confirm(
+            "📣 Panggil antrean berikutnya untuk " +
             game +
             "?"
-        )
-    ) return;
+        );
 
 
-    sedangProses =
-        true;
+    if (!yakin)
+        return;
+
+
+    sedangProses = true;
 
 
     try {
@@ -2345,72 +1193,91 @@ async function panggilAntrean(
         const hasil =
             await panggilAPI({
 
-                action:
-                    "call",
+                action: "call",
 
-                game:
-                    game
+                game: String(game).trim()
 
             });
 
 
         if (
+            !hasil ||
             !hasil.success
         ) {
 
             alert(
-                hasil.message ||
-                "Gagal memanggil antrean."
+                hasil &&
+                hasil.message
+                ? hasil.message
+                : "Gagal memanggil antrean."
             );
 
-        } else {
-
-            tampilkanToast(
-                "📣 ANTREAN DIPANGGIL",
-                (
-                    hasil.queueId ||
-                    ""
-                ) +
-                " — " +
-                (
-                    hasil.customer ||
-                    ""
-                ),
-                "success"
-            );
-
-
-            await muatData();
+            return;
 
         }
 
 
-    } catch(error) {
-
         alert(
-            "Gagal memanggil antrean.\n\n" +
-            error.message
+            "📣 ANTREAN DIPANGGIL!\n\n" +
+
+            String(
+                hasil.queueId || ""
+            ) +
+
+            "\n" +
+
+            String(
+                hasil.customer || ""
+            )
         );
 
+
+        await muatData();
+
+
+    } catch(error) {
+
+        console.error(
+            "CALL ERROR:",
+            error
+        );
+
+
+        alert(
+            "❌ Terjadi kesalahan saat memanggil antrean."
+        );
+
+
+    } finally {
+
+        sedangProses = false;
+
     }
-
-
-    sedangProses =
-        false;
 
 }
 
 
+
 /* =====================================================
-   START SESSION
+   MULAI SESI
 ===================================================== */
 
-async function mulaiSesi(
-    queueId
-) {
+
+async function mulaiSesi(queueId) {
 
     if (sedangProses)
         return;
+
+
+    if (!queueId) {
+
+        alert(
+            "ID antrean tidak ditemukan."
+        );
+
+        return;
+
+    }
 
 
     const durasi =
@@ -2420,26 +1287,24 @@ async function mulaiSesi(
         );
 
 
-    if (
-        durasi === null
-    ) return;
+    if (durasi === null)
+        return;
 
 
     const angka =
         parseInt(
-            durasi,
+            String(durasi).trim(),
             10
         );
 
 
     if (
         !Number.isFinite(angka) ||
-        angka < 1 ||
-        angka > 1440
+        angka < 1
     ) {
 
         alert(
-            "Durasi tidak valid.\nMasukkan 1–1440 menit."
+            "Durasi tidak valid."
         );
 
         return;
@@ -2447,8 +1312,7 @@ async function mulaiSesi(
     }
 
 
-    sedangProses =
-        true;
+    sedangProses = true;
 
 
     try {
@@ -2456,11 +1320,10 @@ async function mulaiSesi(
         const hasil =
             await panggilAPI({
 
-                action:
-                    "mulai",
+                action: "mulai",
 
                 queueId:
-                    queueId,
+                    String(queueId).trim(),
 
                 durasi:
                     angka
@@ -2469,50 +1332,52 @@ async function mulaiSesi(
 
 
         if (
+            !hasil ||
             !hasil.success
         ) {
 
             alert(
-                hasil.message ||
-                "Gagal memulai sesi."
+                hasil &&
+                hasil.message
+                ? hasil.message
+                : "Gagal memulai sesi."
             );
 
-        } else {
-
-            tampilkanToast(
-                "▶️ SESI DIMULAI",
-                queueId +
-                " • " +
-                angka +
-                " menit",
-                "success"
-            );
-
-
-            await muatData();
+            return;
 
         }
 
 
+        await muatData();
+
+
     } catch(error) {
 
-        alert(
-            "Gagal memulai sesi.\n\n" +
-            error.message
+        console.error(
+            "START ERROR:",
+            error
         );
 
+
+        alert(
+            "❌ Gagal memulai sesi."
+        );
+
+
+    } finally {
+
+        sedangProses = false;
+
     }
-
-
-    sedangProses =
-        false;
 
 }
 
 
+
 /* =====================================================
-   CHANGE DURATION
+   UBAH DURASI
 ===================================================== */
+
 
 async function ubahDurasi(
     queueId,
@@ -2523,8 +1388,36 @@ async function ubahDurasi(
         return;
 
 
-    sedangProses =
-        true;
+    if (!queueId) {
+
+        alert(
+            "ID antrean tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    const perubahan =
+        Number(delta);
+
+
+    if (
+        !Number.isFinite(perubahan) ||
+        perubahan === 0
+    ) {
+
+        alert(
+            "Perubahan durasi tidak valid."
+        );
+
+        return;
+
+    }
+
+
+    sedangProses = true;
 
 
     try {
@@ -2536,81 +1429,92 @@ async function ubahDurasi(
                     "ubahDurasi",
 
                 queueId:
-                    queueId,
+                    String(queueId).trim(),
 
                 delta:
-                    delta
+                    perubahan
 
             });
 
 
         if (
+            !hasil ||
             !hasil.success
         ) {
 
             alert(
-                hasil.message ||
-                "Gagal mengubah durasi."
+                hasil &&
+                hasil.message
+                ? hasil.message
+                : "Gagal mengubah durasi."
             );
 
-        } else {
-
-            tampilkanToast(
-                delta > 0
-                    ? "➕ WAKTU DITAMBAHKAN"
-                    : "➖ WAKTU DIKURANGI",
-                queueId +
-                " • " +
-                Math.abs(delta) +
-                " menit",
-                "success"
-            );
-
-
-            await muatData();
+            return;
 
         }
 
 
+        await muatData();
+
+
     } catch(error) {
 
-        alert(
-            "Gagal mengubah durasi.\n\n" +
-            error.message
+        console.error(
+            "DURATION ERROR:",
+            error
         );
 
+
+        alert(
+            "❌ Gagal mengubah durasi."
+        );
+
+
+    } finally {
+
+        sedangProses = false;
+
     }
-
-
-    sedangProses =
-        false;
 
 }
 
 
+
 /* =====================================================
-   DONE
+   SELESAI
 ===================================================== */
 
-async function selesaikan(
-    queueId
-) {
+
+async function selesaikan(queueId) {
 
     if (sedangProses)
         return;
 
 
-    if (
-        !confirm(
-            "Yakin sesi " +
+    if (!queueId) {
+
+        alert(
+            "ID antrean tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    const yakin =
+        confirm(
+            "✅ Yakin sesi " +
             queueId +
             " sudah selesai?"
-        )
-    ) return;
+        );
 
 
-    sedangProses =
-        true;
+    if (!yakin)
+        return;
+
+
+    sedangProses = true;
 
 
     try {
@@ -2618,90 +1522,129 @@ async function selesaikan(
         const hasil =
             await panggilAPI({
 
-                action:
-                    "done",
+                action: "done",
 
                 queueId:
-                    queueId
+                    String(queueId).trim()
 
             });
 
 
         if (
+            !hasil ||
             !hasil.success
         ) {
 
             alert(
-                hasil.message ||
-                "Gagal menyelesaikan sesi."
+                hasil &&
+                hasil.message
+                ? hasil.message
+                : "Gagal menyelesaikan sesi."
             );
 
-        } else {
-
-            warningSudahMuncul.delete(
-                String(queueId)
-            );
-
-            expiredSudahMuncul.delete(
-                String(queueId)
-            );
-
-
-            tampilkanToast(
-                "✅ SESI SELESAI",
-                queueId +
-                " telah diselesaikan.",
-                "success"
-            );
-
-
-            await muatData();
+            return;
 
         }
 
 
+        await muatData();
+
+
     } catch(error) {
 
-        alert(
-            "Gagal menyelesaikan sesi.\n\n" +
-            error.message
+        console.error(
+            "DONE ERROR:",
+            error
         );
 
+
+        alert(
+            "❌ Gagal menyelesaikan sesi."
+        );
+
+
+    } finally {
+
+        sedangProses = false;
+
     }
-
-
-    sedangProses =
-        false;
 
 }
 
 
+
 /* =====================================================
-   DELETE
+   DELETE / BATALKAN ANTREAN
 ===================================================== */
 
-async function hapus(
-    queueId
-) {
+
+async function hapus(queueId) {
 
     if (sedangProses)
         return;
 
 
-    if (
-        !confirm(
-            "Batalkan antrean " +
-            queueId +
-            "?"
-        )
-    ) return;
+    /* Pastikan ID tersedia */
+
+    if (!queueId) {
+
+        alert(
+            "❌ ID antrean tidak ditemukan."
+        );
+
+        return;
+
+    }
 
 
-    sedangProses =
-        true;
+    /* Bersihkan spasi */
+
+    const id =
+        String(queueId).trim();
+
+
+    if (!id) {
+
+        alert(
+            "❌ ID antrean kosong."
+        );
+
+        return;
+
+    }
+
+
+    /* Konfirmasi */
+
+    const yakin =
+        confirm(
+
+            "⚠️ BATALKAN ANTREAN\n\n" +
+
+            "Antrean: " +
+            id +
+
+            "\n\n" +
+
+            "Yakin ingin membatalkan antrean ini?"
+
+        );
+
+
+    if (!yakin)
+        return;
+
+
+    sedangProses = true;
 
 
     try {
+
+        console.log(
+            "Menghapus antrean:",
+            id
+        );
+
 
         const hasil =
             await panggilAPI({
@@ -2710,59 +1653,90 @@ async function hapus(
                     "delete",
 
                 queueId:
-                    queueId
+                    id
 
             });
 
 
+        console.log(
+            "HASIL DELETE:",
+            hasil
+        );
+
+
         if (
+            !hasil ||
             !hasil.success
         ) {
 
             alert(
-                hasil.message ||
-                "Gagal membatalkan antrean."
+
+                "❌ Gagal membatalkan antrean.\n\n" +
+
+                (
+                    hasil &&
+                    hasil.message
+                    ? hasil.message
+                    : "Server tidak memberikan respons yang benar."
+                )
+
             );
 
-        } else {
-
-            tampilkanToast(
-                "❌ ANTREAN DIBATALKAN",
-                queueId,
-                "danger"
-            );
-
-
-            await muatData();
+            return;
 
         }
 
 
+        alert(
+
+            "✅ Antrean " +
+            id +
+            " berhasil dibatalkan."
+
+        );
+
+
+        /* Ambil ulang data */
+
+        await muatData();
+
+
     } catch(error) {
 
-        alert(
-            "Gagal membatalkan antrean.\n\n" +
-            error.message
+        console.error(
+            "DELETE ERROR:",
+            error
         );
+
+
+        alert(
+
+            "❌ Terjadi kesalahan saat membatalkan antrean.\n\n" +
+
+            "Silakan coba lagi."
+
+        );
+
+
+    } finally {
+
+        sedangProses = false;
 
     }
 
-
-    sedangProses =
-        false;
-
 }
+
 
 
 /* =====================================================
    TIMER
 ===================================================== */
 
-function hitungSisa(
-    item
-) {
+
+function hitungSisa(item) {
 
     if (
+        !item ||
         !item.mulaiMain ||
         !item.durasiMenit
     ) {
@@ -2772,21 +1746,17 @@ function hitungSisa(
     }
 
 
-    const mulai =
-        Number(
-            item.mulaiMain
-        );
+    const total =
+        Number(item.durasiMenit) *
+        60;
 
 
-    const durasi =
-        Number(
-            item.durasiMenit
-        );
+    const waktuMulai =
+        Number(item.mulaiMain);
 
 
     if (
-        !Number.isFinite(mulai) ||
-        !Number.isFinite(durasi)
+        !Number.isFinite(waktuMulai)
     ) {
 
         return null;
@@ -2794,36 +1764,39 @@ function hitungSisa(
     }
 
 
-    const total =
-        durasi * 60;
-
-
     const berlalu =
         Math.floor(
+
             (
                 Date.now() -
-                mulai
+                waktuMulai
             ) / 1000
+
         );
 
 
-    return total - berlalu;
+    return (
+        total -
+        berlalu
+    );
 
 }
+
 
 
 /* =====================================================
    FORMAT TIMER
 ===================================================== */
 
-function formatTimer(
-    seconds
-) {
+
+function formatTimer(seconds) {
 
     seconds =
         Math.max(
             0,
-            Math.floor(seconds)
+            Math.floor(
+                Number(seconds) || 0
+            )
         );
 
 
@@ -2839,197 +1812,26 @@ function formatTimer(
 
     return (
 
-        String(
-            menit
-        ).padStart(2, "0")
+        String(menit)
+            .padStart(2, "0")
 
         +
 
         ":" +
 
-        String(
-            detik
-        ).padStart(2, "0")
+        String(detik)
+            .padStart(2, "0")
 
     );
 
 }
 
-
-/* =====================================================
-   TIMER NOTIFICATION
-===================================================== */
-
-function cekPeringatanWaktu() {
-
-    semuaAntrean.forEach(
-        function(item) {
-
-            if (
-                item.status !==
-                "PLAYING"
-            ) return;
-
-
-            if (
-                !item.mulaiMain ||
-                !item.durasiMenit
-            ) return;
-
-
-            const sisa =
-                hitungSisa(
-                    item
-                );
-
-
-            if (
-                sisa === null
-            ) return;
-
-
-            const id =
-                String(
-                    item.queueId
-                );
-
-
-            /*
-               Hampir habis.
-            */
-
-            if (
-                sisa > 0 &&
-                sisa <= WARNING_SECONDS
-            ) {
-
-                if (
-                    !warningSudahMuncul.has(
-                        id
-                    )
-                ) {
-
-                    warningSudahMuncul.add(
-                        id
-                    );
-
-
-                    const waktu =
-                        formatTimer(
-                            sisa
-                        );
-
-
-                    tampilkanToast(
-                        "⚠️ WAKTU HAMPIR HABIS",
-                        id +
-                        " tersisa " +
-                        waktu,
-                        "warning"
-                    );
-
-
-                    kirimNotifikasi(
-                        "⚠️ Waktu Hampir Habis",
-                        id +
-                        " tersisa " +
-                        waktu
-                    );
-
-                }
-
-            }
-
-
-            /*
-               Waktu habis.
-            */
-
-            if (
-                sisa <= 0
-            ) {
-
-                if (
-                    !expiredSudahMuncul.has(
-                        id
-                    )
-                ) {
-
-                    expiredSudahMuncul.add(
-                        id
-                    );
-
-
-                    tampilkanToast(
-                        "🚨 WAKTU HABIS",
-                        id +
-                        " sudah mencapai batas waktu.",
-                        "danger"
-                    );
-
-
-                    kirimNotifikasi(
-                        "🚨 Waktu Habis",
-                        id +
-                        " sudah mencapai batas waktu."
-                    );
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(
-    value
-) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-
-    }
-
-
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
 
 
 /* =====================================================
    RENDER
 ===================================================== */
+
 
 function render() {
 
@@ -3039,58 +1841,43 @@ function render() {
 
     renderQueue();
 
-    cekPeringatanWaktu();
-
 }
 
 
+
 /* =====================================================
-   STATS
+   STATISTICS
 ===================================================== */
+
 
 function renderStats() {
 
     const playing =
         semuaAntrean.filter(
-            function(x) {
-
-                return (
-                    x.status ===
-                    "PLAYING"
-                );
-
-            }
+            x =>
+                x.status ===
+                "PLAYING"
         );
 
 
     const waiting =
         semuaAntrean.filter(
-            function(x) {
-
-                return (
-                    x.status ===
-                    "WAITING"
-                );
-
-            }
+            x =>
+                x.status ===
+                "WAITING"
         );
 
 
-    let hampirHabis =
-        0;
+    let hampirHabis = 0;
 
-
-    let habis =
-        0;
+    let habis = 0;
 
 
     playing.forEach(
-        function(item) {
+        item => {
 
             const sisa =
-                hitungSisa(
-                    item
-                );
+                hitungSisa(item);
 
 
             if (
@@ -3106,8 +1893,7 @@ function renderStats() {
                 }
 
                 else if (
-                    sisa <=
-                    WARNING_SECONDS
+                    sisa <= 600
                 ) {
 
                     hampirHabis++;
@@ -3146,9 +1932,11 @@ function renderStats() {
 }
 
 
+
 /* =====================================================
    GAME SUMMARY
 ===================================================== */
+
 
 function renderGameSummary() {
 
@@ -3158,39 +1946,36 @@ function renderGameSummary() {
         );
 
 
-    let html =
-        "";
+    let html = "";
 
 
     GAMES.forEach(
-        function(game) {
+        game => {
 
             const waiting =
                 semuaAntrean.filter(
-                    function(x) {
 
-                        return (
-                            x.game === game &&
-                            x.status ===
-                            "WAITING"
-                        );
+                    x =>
+                        x.game === game &&
+                        x.status ===
+                        "WAITING"
 
-                    }
                 ).length;
 
 
             const playing =
                 semuaAntrean.filter(
-                    function(x) {
 
-                        return (
-                            x.game === game &&
-                            x.status ===
-                            "PLAYING"
-                        );
+                    x =>
+                        x.game === game &&
+                        x.status ===
+                        "PLAYING"
 
-                    }
                 ).length;
+
+
+            const adaWaiting =
+                waiting > 0;
 
 
             html += `
@@ -3198,59 +1983,33 @@ function renderGameSummary() {
                 <div class="game-box">
 
                     <div class="game-name">
-
-                        ${escapeHTML(game)}
-
+                        🎮 ${game}
                     </div>
 
                     <div class="game-count">
-
-                        🟡
-                        ${waiting}
-                        menunggu
-
+                        🟡 ${waiting} menunggu
                     </div>
 
                     <div class="game-count">
-
-                        🟢
-                        ${playing}
-                        bermain
-
+                        🟢 ${playing} bermain
                     </div>
 
-                    ${
-                        waiting > 0
-                        ? `
+                    <div
+                        class="buttons"
+                        style="margin-top:12px"
+                    >
 
-                            <div
-                                style="
-                                    margin-top:10px;
-                                "
-                            >
+                        <button
+                            class="btn-call"
+                            ${adaWaiting ? "" : "disabled"}
+                            onclick='panggilAntrean(${JSON.stringify(game)})'
+                        >
 
-                                <button
-                                    class="btn-call"
-                                    style="
-                                        width:100%;
-                                        padding:9px;
-                                    "
-                                    onclick="
-                                        panggilAntrean(
-                                            '${escapeHTML(game)}'
-                                        )
-                                    "
-                                >
+                            📣 PANGGIL ANTREAN
 
-                                    📣 PANGGIL
+                        </button>
 
-                                </button>
-
-                            </div>
-
-                        `
-                        : ""
-                    }
+                    </div>
 
                 </div>
 
@@ -3266,9 +2025,11 @@ function renderGameSummary() {
 }
 
 
+
 /* =====================================================
-   QUEUE
+   RENDER QUEUE
 ===================================================== */
+
 
 function renderQueue() {
 
@@ -3298,22 +2059,26 @@ function renderQueue() {
 
 
     /*
-       Urutan:
-
-       1. PLAYING
-       2. WAITING
+        PLAYING terlebih dahulu.
+        WAITING setelahnya.
     */
 
+
     const data =
-        [...semuaAntrean]
-        .sort(
-            function(a, b) {
+        [...semuaAntrean].sort(
+
+            (a, b) => {
 
                 if (
+
                     a.status ===
-                    "PLAYING" &&
+                    "PLAYING"
+
+                    &&
+
                     b.status !==
                     "PLAYING"
+
                 ) {
 
                     return -1;
@@ -3322,10 +2087,15 @@ function renderQueue() {
 
 
                 if (
+
                     a.status !==
-                    "PLAYING" &&
+                    "PLAYING"
+
+                    &&
+
                     b.status ===
                     "PLAYING"
+
                 ) {
 
                     return 1;
@@ -3336,15 +2106,16 @@ function renderQueue() {
                 return 0;
 
             }
+
         );
 
 
-    let html =
-        "";
+    let html = "";
 
 
     data.forEach(
-        function(item) {
+        item => {
+
 
             const isPlaying =
                 item.status ===
@@ -3352,67 +2123,37 @@ function renderQueue() {
 
 
             const sisa =
-                hitungSisa(
-                    item
+                hitungSisa(item);
+
+
+            const queueId =
+                String(
+                    item.queueId || ""
+                ).trim();
+
+
+            const game =
+                String(
+                    item.game || ""
+                );
+
+
+            const customer =
+                String(
+                    item.customer || ""
+                );
+
+
+            const players =
+                String(
+                    item.players || 0
                 );
 
 
             let cardClass =
-                "queue-card";
-
-
-            if (
-                isPlaying &&
-                item.mulaiMain
-            ) {
-
-                cardClass +=
-                    " playing";
-
-            }
-
-            else if (
                 isPlaying
-            ) {
-
-                cardClass +=
-                    " called";
-
-            }
-
-
-            let statusClass =
-                "waiting";
-
-
-            let statusText =
-                "🟡 WAITING";
-
-
-            if (
-                isPlaying &&
-                item.mulaiMain
-            ) {
-
-                statusClass =
-                    "playing";
-
-                statusText =
-                    "🟢 PLAYING";
-
-            }
-
-            else if (
-                isPlaying
-            ) {
-
-                statusClass =
-                    "called";
-
-                statusText =
-                    "🔵 DIPANGGIL";
-
-            }
+                ? "queue-card playing"
+                : "queue-card";
 
 
             html += `
@@ -3430,41 +2171,26 @@ function renderQueue() {
                             <div
                                 class="queue-id"
                             >
-
-                                ${escapeHTML(
-                                    item.queueId
-                                )}
-
+                                ${queueId}
                             </div>
 
 
                             <div
                                 class="customer"
                             >
-
                                 👤
-                                ${escapeHTML(
-                                    item.customer
-                                )}
-
+                                ${customer}
                                 —
-                                ${escapeHTML(
-                                    item.players
-                                )}
+                                ${players}
                                 pemain
-
                             </div>
 
 
                             <div
                                 class="game"
                             >
-
                                 🎮
-                                ${escapeHTML(
-                                    item.game
-                                )}
-
+                                ${game}
                             </div>
 
                         </div>
@@ -3473,13 +2199,18 @@ function renderQueue() {
                         <div>
 
                             <span
-                                class="
-                                    status
-                                    ${statusClass}
-                                "
+                                class="status ${
+                                    isPlaying
+                                    ? "playing"
+                                    : "waiting"
+                                }"
                             >
 
-                                ${statusText}
+                                ${
+                                    isPlaying
+                                    ? "🟢 PLAYING"
+                                    : "🟡 WAITING"
+                                }
 
                             </span>
 
@@ -3490,24 +2221,33 @@ function renderQueue() {
             `;
 
 
-            /*
+
+            /* =========================
                TIMER
-            */
+            ========================= */
+
 
             if (
+
                 isPlaying &&
+
                 item.mulaiMain &&
+
                 item.durasiMenit
+
             ) {
+
 
                 let timerClass =
                     "timer";
 
 
                 if (
-                    sisa <=
-                    WARNING_SECONDS &&
+
+                    sisa <= 600 &&
+
                     sisa > 0
+
                 ) {
 
                     timerClass +=
@@ -3535,9 +2275,7 @@ function renderQueue() {
                         ${
                             sisa <= 0
                             ? "WAKTU HABIS"
-                            : formatTimer(
-                                sisa
-                            )
+                            : formatTimer(sisa)
                         }
 
                     </div>
@@ -3545,27 +2283,19 @@ function renderQueue() {
 
                     <div
                         class="info"
-                        style="
-                            text-align:center;
-                        "
+                        style="text-align:center"
                     >
 
                         Durasi:
-                        ${escapeHTML(
-                            item.durasiMenit
-                        )}
+                        ${item.durasiMenit}
                         menit
 
                     </div>
 
                 `;
 
+
             }
-
-
-            /*
-               DIPANGGIL TAPI BELUM DIMULAI
-            */
 
             else if (
                 isPlaying
@@ -3575,21 +2305,15 @@ function renderQueue() {
 
                     <div
                         class="info"
-                        style="
-                            text-align:center;
-                        "
                     >
 
-                        📣 Antrean sudah
-                        dipanggil.
-
-                        <br>
+                        ⚠️ Antrean sudah dipanggil.
 
                         Silakan tekan
+
                         <b>
                             MULAI SESI
-                        </b>
-                        untuk menjalankan timer.
+                        </b>.
 
                     </div>
 
@@ -3598,9 +2322,11 @@ function renderQueue() {
             }
 
 
-            /*
-               BUTTONS
-            */
+
+            /* =========================
+               BUTTON AREA
+            ========================= */
+
 
             html += `
 
@@ -3611,9 +2337,11 @@ function renderQueue() {
             `;
 
 
-            /*
+
+            /* =========================
                WAITING
-            */
+            ========================= */
+
 
             if (
                 item.status ===
@@ -3624,32 +2352,17 @@ function renderQueue() {
 
                     <button
                         class="btn-call"
-                        onclick="
-                            panggilAntrean(
-                                '${escapeHTML(
-                                    item.game
-                                )}'
-                            )
-                        "
+                        onclick='panggilAntrean(${JSON.stringify(game)})'
                     >
 
                         📣 PANGGIL
-                        ${escapeHTML(
-                            item.game
-                        )}
 
                     </button>
 
 
                     <button
                         class="btn-delete"
-                        onclick="
-                            hapus(
-                                '${escapeHTML(
-                                    item.queueId
-                                )}'
-                            )
-                        "
+                        onclick='hapus(${JSON.stringify(queueId)})'
                     >
 
                         ❌ BATALKAN
@@ -3661,27 +2374,28 @@ function renderQueue() {
             }
 
 
-            /*
-               CALLED
-            */
+
+            /* =========================
+               PLAYING BELUM DIMULAI
+            ========================= */
+
 
             if (
+
                 item.status ===
-                "PLAYING" &&
+                "PLAYING"
+
+                &&
+
                 !item.mulaiMain
+
             ) {
 
                 html += `
 
                     <button
                         class="btn-start"
-                        onclick="
-                            mulaiSesi(
-                                '${escapeHTML(
-                                    item.queueId
-                                )}'
-                            )
-                        "
+                        onclick='mulaiSesi(${JSON.stringify(queueId)})'
                     >
 
                         ▶️ MULAI SESI
@@ -3691,13 +2405,7 @@ function renderQueue() {
 
                     <button
                         class="btn-delete"
-                        onclick="
-                            hapus(
-                                '${escapeHTML(
-                                    item.queueId
-                                )}'
-                            )
-                        "
+                        onclick='hapus(${JSON.stringify(queueId)})'
                     >
 
                         ❌ BATALKAN
@@ -3709,61 +2417,48 @@ function renderQueue() {
             }
 
 
-            /*
-               PLAYING
-            */
+
+            /* =========================
+               PLAYING AKTIF
+            ========================= */
+
 
             if (
+
                 item.status ===
-                "PLAYING" &&
+                "PLAYING"
+
+                &&
+
                 item.mulaiMain
+
             ) {
 
                 html += `
 
                     <button
                         class="btn-add"
-                        onclick="
-                            ubahDurasi(
-                                '${escapeHTML(
-                                    item.queueId
-                                )}',
-                                30
-                            )
-                        "
+                        onclick='ubahDurasi(${JSON.stringify(queueId)}, 30)'
                     >
 
-                        ➕ +30 MENIT
+                        +30 MENIT
 
                     </button>
 
 
                     <button
                         class="btn-minus"
-                        onclick="
-                            ubahDurasi(
-                                '${escapeHTML(
-                                    item.queueId
-                                )}',
-                                -30
-                            )
-                        "
+                        onclick='ubahDurasi(${JSON.stringify(queueId)}, -30)'
                     >
 
-                        ➖ -30 MENIT
+                        -30 MENIT
 
                     </button>
 
 
                     <button
                         class="btn-done"
-                        onclick="
-                            selesaikan(
-                                '${escapeHTML(
-                                    item.queueId
-                                )}'
-                            )
-                        "
+                        onclick='selesaikan(${JSON.stringify(queueId)})'
                     >
 
                         ✅ SELESAI
@@ -3773,6 +2468,7 @@ function renderQueue() {
                 `;
 
             }
+
 
 
             html += `
@@ -3793,90 +2489,54 @@ function renderQueue() {
 }
 
 
+
 /* =====================================================
-   REFRESH BUTTON
+   INITIAL LOAD
 ===================================================== */
 
-document
-    .getElementById(
-        "refreshButton"
-    )
-    .addEventListener(
-        "click",
-        async function() {
 
-            if (
-                sedangProses
-            ) return;
+muatData();
 
-
-            tampilkanToast(
-                "🔄 REFRESH",
-                "Memperbarui data PLAYNEST...",
-                ""
-            );
-
-
-            await muatData();
-
-        }
-    );
 
 
 /* =====================================================
-   TIMER LOOP
+   SERVER SYNC
+   Setiap 3 detik
 ===================================================== */
+
 
 setInterval(
-    function() {
 
-        if (
-            sudahLogin
-        ) {
+    muatData,
 
-            render();
+    3000
 
-        }
+);
+
+
+
+/* =====================================================
+   TIMER UPDATE
+   Setiap 1 detik
+===================================================== */
+
+
+setInterval(
+
+    () => {
+
+        render();
 
     },
+
     1000
+
 );
 
-
-/* =====================================================
-   SERVER SYNC LOOP
-===================================================== */
-
-setInterval(
-    function() {
-
-        if (
-            sudahLogin &&
-            !sedangProses
-        ) {
-
-            muatData();
-
-        }
-
-    },
-    REFRESH_INTERVAL
-);
-
-
-/* =====================================================
-   START APP
-===================================================== */
-
-if (
-    sudahLogin
-) {
-
-    muatData();
-
-}
 
 </script>
 
+
 </body>
-    </html>
+
+</html>
