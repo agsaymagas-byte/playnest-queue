@@ -262,6 +262,7 @@
                 semuaAntrean = hasil.data;
                 document.getElementById("statusKoneksi").textContent = "Terhubung — data tersinkron";
                 document.getElementById("statusKoneksi").classList.remove("error");
+                cekPerubahanStatus();
                 render();
             } else {
                 tampilkanErrorKoneksi(hasil.message);
@@ -298,6 +299,39 @@
         await muatData();
     }
 
+    function cekPerubahanStatus() {
+        let tiketSaya = muatTiketSaya();
+        let perluDisimpanUlang = false;
+
+        tiketSaya.forEach(t => {
+            let tiketServer = semuaAntrean.find(i => i.queueId === t.id);
+
+            if (tiketServer) {
+                let statusLama = statusSebelumnya[t.id];
+                if (statusLama === "WAITING" && tiketServer.status === "PLAYING") {
+                    kirimNotifikasi("Giliran Kamu!", t.id + " — Silakan menuju kasir untuk memulai sesi.");
+                }
+                statusSebelumnya[t.id] = tiketServer.status;
+
+                if (tiketServer.status === "PLAYING" && tiketServer.mulaiMain && !t.notif10) {
+                    let sisaDetik = hitungSisaDetik(tiketServer);
+                    if (sisaDetik !== null && sisaDetik <= 600 && sisaDetik > 0) {
+                        t.notif10 = true;
+                        perluDisimpanUlang = true;
+                        kirimNotifikasi("⏳ 10 Menit Lagi", "Sisa waktu bermainmu tinggal 10 menit. Nikmati momen terakhirnya, dan terima kasih sudah bermain di PLAYNEST! 🎮");
+                    }
+                }
+            } else if (!t.selesai) {
+                t.selesai = true;
+                perluDisimpanUlang = true;
+                kirimNotifikasi("Sesi Selesai", t.id + " — Terima kasih sudah bermain di PLAYNEST!");
+                delete statusSebelumnya[t.id];
+            }
+        });
+
+        if (perluDisimpanUlang) simpanTiketSaya(tiketSaya);
+    }
+
     function render() {
         let grid = document.getElementById("gameGrid");
         grid.innerHTML = "";
@@ -326,18 +360,11 @@
         }
 
         let html = "";
-        let perluDisimpanUlang = false;
 
         tiketSaya.forEach(t => {
             let tiketServer = semuaAntrean.find(i => i.queueId === t.id);
 
             if (tiketServer) {
-                let statusLama = statusSebelumnya[t.id];
-                if (statusLama === "WAITING" && tiketServer.status === "PLAYING") {
-                    kirimNotifikasi("Giliran Kamu!", t.id + " — Silakan menuju kasir untuk memulai sesi.");
-                }
-                statusSebelumnya[t.id] = tiketServer.status;
-
                 let cls = "";
                 let statusText = "";
                 let extraHtml = "";
@@ -353,12 +380,6 @@
                 } else if (tiketServer.status === "PLAYING" && tiketServer.mulaiMain) {
                     cls = "playing";
                     let sisaDetik = hitungSisaDetik(tiketServer);
-
-                    if (!t.notif10 && sisaDetik !== null && sisaDetik <= 600 && sisaDetik > 0) {
-                        t.notif10 = true;
-                        perluDisimpanUlang = true;
-                        kirimNotifikasi("⏳ 10 Menit Lagi", "Sisa waktu bermainmu tinggal 10 menit. Nikmati momen terakhirnya, dan terima kasih sudah bermain di PLAYNEST! 🎮");
-                    }
 
                     if (sisaDetik !== null) {
                         let warnaKelas = sisaDetik <= 0 ? "habis" : (sisaDetik <= 600 ? "warning" : "");
@@ -377,22 +398,7 @@
                         ${extraHtml}
                     </div>
                 `;
-            } else if (!t.selesai) {
-                t.selesai = true;
-                perluDisimpanUlang = true;
-                kirimNotifikasi("Sesi Selesai", t.id + " — Terima kasih sudah bermain di PLAYNEST!");
-                delete statusSebelumnya[t.id];
-
-                html += `
-                    <div class="tiketCard selesai">
-                        <div class="idBesar">${t.id} ✅</div>
-                        <div>${t.customer} — ${t.players} pemain</div>
-                        <div class="statusText">🎉 SELESAI — Terima kasih sudah bermain di PLAYNEST!</div>
-                        <div class="pesanKesan">Semoga betah dan sampai jumpa lagi 💜</div>
-                        <button class="btnTutup" onclick="tutupTiket('${t.id}')">Tutup</button>
-                    </div>
-                `;
-            } else {
+            } else if (t.selesai) {
                 html += `
                     <div class="tiketCard selesai">
                         <div class="idBesar">${t.id} ✅</div>
@@ -405,13 +411,16 @@
             }
         });
 
-        if (perluDisimpanUlang) simpanTiketSaya(tiketSaya);
         container.innerHTML = html || '<p class="empty-msg">Kamu belum mengambil antrean</p>';
     }
 
     muatData();
     setInterval(muatData, 3000);
     setInterval(render, 1000);
+
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) muatData();
+    });
 </script>
 
 </body>
